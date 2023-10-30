@@ -3,19 +3,13 @@
 - [Softwaretechnik Workshop Gruppe 7](#softwaretechnik-workshop-gruppe-7)
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
   - [1 Systemkomponenten](#1-systemkomponenten)
-    - [Hardware](#hardware)
+    - [Infrastruktur](#infrastruktur)
     - [Software](#software)
-    - [Quellsysteme](#quellsysteme)
+    - [Source Control](#source-control)
     - [Ausgangsschnittstellen](#ausgangsschnittstellen)
     - [Zielsysteme und Schnittstellen](#zielsysteme-und-schnittstellen)
   - [2 Netzwerkkonzept](#2-netzwerkkonzept)
-    - [Bandbreite (Carrier, QoS)](#bandbreite-carrier-qos)
-    - [Anteile Intern/Extern](#anteile-internextern)
     - [Was wird benötigt](#was-wird-benötigt)
-    - [IP-Adressen/Ports/Firewall freischaltung/ OoS](#ip-adressenportsfirewall-freischaltung-oos)
-    - [Platz im Technikraum (Nur, wenn Hardware)](#platz-im-technikraum-nur-wenn-hardware)
-    - [Anzahl HE](#anzahl-he)
-    - [Tiefe](#tiefe)
   - [3 Cloud-Bedarf](#3-cloud-bedarf)
     - [Autarke Anteile](#autarke-anteile)
     - [Darstellung Aufbau](#darstellung-aufbau)
@@ -37,20 +31,60 @@
     - [Systemvoraussetzungen](#systemvoraussetzungen)
     - [Nutzer- und Berechtigungskonzept](#nutzer--und-berechtigungskonzept)
 ## 1 Systemkomponenten
-### Hardware
+### Infrastruktur
+Backend
+- Docker Images
+- AKS ([Azure Kubernetes Service](https://azure.microsoft.com/de-de/products/kubernetes-service/docker/)) free tier
+  
+Frontend
+- Github Pages
+
+CI/CD
+- Github Actions
+  
+DB
+- Postgres
 
 ### Software
-### Quellsysteme
+Backend
+- Java 17
+- Quarkus
+- RESTeasy, JPA
+
+Frontend
+- HTML
+- JS mit jQuery
+- CSS mit TailwindCSS
+
+
+### Source Control
+Github free tier 
+
+
 ### Ausgangsschnittstellen
+- OpenAPI Spec TBD 
+
+
 ### Zielsysteme und Schnittstellen
+- Terminverwaltung
+- Core Functionalities
+  - verschiedene User anlegen, bearbeiten, entfernen
+  - Termine anlegen, einladen, verschieben, entfernen
+  - Prüfung ob Termin verfügbar
+- Stretch
+  - Userverwaltung mit OAuth2 
+  - Benachrichtungen per Mail
+  - User Stats
+- Backend only -> REST Api 
+- Dummy Frontend zur Demonstration der Backend Funktionalität
+
 ## 2 Netzwerkkonzept 
-### Bandbreite (Carrier, QoS)
-### Anteile Intern/Extern
 ### Was wird benötigt
-### IP-Adressen/Ports/Firewall freischaltung/ OoS
-### Platz im Technikraum (Nur, wenn Hardware)
-### Anzahl HE
-### Tiefe
+- Domain
+- TLS Zertifikate 
+- Ingress Controller
+TBD: klären, ob das Azure Free Tier public Domains & TLS Certs enthält
+
 ## 3 Cloud-Bedarf
 ### Autarke Anteile
 ### Darstellung Aufbau
