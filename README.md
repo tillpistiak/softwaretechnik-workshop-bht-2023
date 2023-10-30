@@ -45,7 +45,7 @@ CI/CD
 DB
 - Postgres
 
-![components](documentation/diagrams/components.svg)
+![components](documentation/diagrams/components.png)
 
 ### Software
 Backend
