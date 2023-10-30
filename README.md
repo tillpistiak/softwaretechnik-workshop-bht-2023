@@ -45,6 +45,8 @@ CI/CD
 DB
 - Postgres
 
+![components](documentation/diagrams/components.svg)
+
 ### Software
 Backend
 - Java 17
