@@ -3,42 +3,71 @@
 - [Softwaretechnik Workshop Gruppe 7](#softwaretechnik-workshop-gruppe-7)
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
   - [1 Systemkomponenten](#1-systemkomponenten)
+    - [Hardware](#hardware)
+    - [Software](#software)
+    - [Quellsysteme](#quellsysteme)
+    - [Ausgangsschnittstellen](#ausgangsschnittstellen)
+    - [Zielsysteme und Schnittstellen](#zielsysteme-und-schnittstellen)
   - [2 Netzwerkkonzept](#2-netzwerkkonzept)
+    - [Bandbreite (Carrier, QoS)](#bandbreite-carrier-qos)
+    - [Anteile Intern/Extern](#anteile-internextern)
+    - [Was wird benötigt](#was-wird-benötigt)
+    - [IP-Adressen/Ports/Firewall freischaltung/ OoS](#ip-adressenportsfirewall-freischaltung-oos)
+    - [Platz im Technikraum (Nur, wenn Hardware)](#platz-im-technikraum-nur-wenn-hardware)
+    - [Anzahl HE](#anzahl-he)
+    - [Tiefe](#tiefe)
   - [3 Cloud-Bedarf](#3-cloud-bedarf)
+    - [Autarke Anteile](#autarke-anteile)
+    - [Darstellung Aufbau](#darstellung-aufbau)
   - [4 Betriebskonzept](#4-betriebskonzept)
+    - [Hardware-Wartungsbedarf?](#hardware-wartungsbedarf)
+    - [Betriebssytem](#betriebssytem)
+    - [Updateverfahren (Securitypatches,..)](#updateverfahren-securitypatches)
+    - [Softwarepflege](#softwarepflege)
+    - [Securitypatches,..](#securitypatches)
+    - [Notfallkonzeption](#notfallkonzeption)
+    - [Datensicherung/Logs](#datensicherunglogs)
   - [5 Support](#5-support)
+    - [Entry point für Incidents](#entry-point-für-incidents)
+    - [Supportzeit](#supportzeit)
+    - [Reaktionszeit](#reaktionszeit)
+    - [Wiederherstellungszeit](#wiederherstellungszeit)
+    - [Wartungszugang erforderlich?](#wartungszugang-erforderlich)
   - [6 Bedienoberflächen](#6-bedienoberflächen)
+    - [Systemvoraussetzungen](#systemvoraussetzungen)
+    - [Nutzer- und Berechtigungskonzept](#nutzer--und-berechtigungskonzept)
 ## 1 Systemkomponenten
-<br> Hardware:
-<br> Software:
-<br> Quellsysteme:
-<br> Ausgangsschnittstellen:
-<br> Zielsysteme und Schnittstellen
+### Hardware
+
+### Software
+### Quellsysteme
+### Ausgangsschnittstellen
+### Zielsysteme und Schnittstellen
 ## 2 Netzwerkkonzept 
-<br> Bandbreite (Carrier, QoS)
-<br> Anteile Intern/Extern
-<br> Was wird benötigt
-<br> IP-Adressen/Ports/Firewall freischaltung/ OoS
-<br> Platz im Technikraum (Nur, wenn Hardware)
-<br> Anzahl HE
-<br> Tiefe
+### Bandbreite (Carrier, QoS)
+### Anteile Intern/Extern
+### Was wird benötigt
+### IP-Adressen/Ports/Firewall freischaltung/ OoS
+### Platz im Technikraum (Nur, wenn Hardware)
+### Anzahl HE
+### Tiefe
 ## 3 Cloud-Bedarf
-<br> Autarke Anteile
-<br> Darstellung Aufbau
+### Autarke Anteile
+### Darstellung Aufbau
 ## 4 Betriebskonzept
-<br> Hardware-Wartungsbedarf?
-<br> Betriebssytem
-<br> Updateverfahren (Securitypatches,..)
-<br> Softwarepflege 
-<br> Securitypatches,..
-<br> Notfallkonzeption
-<br> Datensicherung/Logs
+### Hardware-Wartungsbedarf?
+### Betriebssytem
+### Updateverfahren (Securitypatches,..)
+### Softwarepflege 
+### Securitypatches,..
+### Notfallkonzeption
+### Datensicherung/Logs
 ## 5 Support
-<br> Entry point für Incidents
-<br> Supportzeit
-<br> Reaktionszeit
-<br> Wiederherstellungszeit
-<br> Wartungszugang erforderlich?
+### Entry point für Incidents
+### Supportzeit
+### Reaktionszeit
+### Wiederherstellungszeit
+### Wartungszugang erforderlich?
 ## 6 Bedienoberflächen
-<br> Systemvoraussetzungen
-<br> Nutzer- und Berechtigungskonzept
+### Systemvoraussetzungen
+### Nutzer- und Berechtigungskonzept
