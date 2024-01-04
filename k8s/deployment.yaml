@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointment-service
+  replicas: 1
+  namespace: appointment-service
+  selector:
+    matchLabels:
+      app: appointment-service
+  template:
+    metadata:
+      labels:
+        app: appointment-service
+    spec:
+      containers:
+        - name: appointment-service
+          image: ghcr.io/tillpistiak/softwaretechnik-workshop-bht-2023/appointment-service:latest
+          ports:
+            - containerPort: 8080
