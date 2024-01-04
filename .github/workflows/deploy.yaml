@@ -29,7 +29,7 @@ jobs:
           namespace: "appointment-service"
           secret-type: "generic"
           secret-name: test
-          data: { "key1": "${{ secrets.TLS_CERT }}" }
+          data: '{ "key1": "${{ secrets.TLS_CERT }}" }'
 
       - name: Deploy to DigitalOcean Kubernetes
         run: kubectl apply -f $GITHUB_WORKSPACE/k8s -n appointment-service
