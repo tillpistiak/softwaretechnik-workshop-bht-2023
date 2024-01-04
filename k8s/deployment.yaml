@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: appointment-service
-  replicas: 1
   namespace: appointment-service
+spec:
+  replicas: 1
   selector:
     matchLabels:
       app: appointment-service
