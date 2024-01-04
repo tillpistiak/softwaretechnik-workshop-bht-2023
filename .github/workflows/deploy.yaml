@@ -23,6 +23,14 @@ jobs:
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.CLUSTER_NAME }}
 
+      - name: Generate public tls secret
+        uses: azure/k8s-create-secret@v2
+        with:
+          namespace: "appointment-service"
+          secret-type: "generic"
+          secret-name: test
+          data: { "key1": "${{ secrets.TLS_CERT }}" }
+
       - name: Deploy to DigitalOcean Kubernetes
         run: kubectl apply -f $GITHUB_WORKSPACE/k8s -n appointment-service
 
