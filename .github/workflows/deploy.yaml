@@ -20,16 +20,11 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
+      - name: Replace placeholders with tls secrets
+        run: sed -i 's|<CERT>|${{ secrets.TLS_CERT }}|' $GITHUB_WORKSPACE/k8s/tls-secret.yaml && sed -i 's|<KEY>|${{ secrets.TLS_KEY }}|' $GITHUB_WORKSPACE/k8s/tls-secret.yaml
+
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.CLUSTER_NAME }}
-
-      - name: Generate public tls secret
-        uses: azure/k8s-create-secret@v2
-        with:
-          namespace: "appointment-service"
-          secret-type: "generic"
-          secret-name: test
-          data: '{ "key1": "${{ secrets.TLS_CERT }}" }'
 
       - name: Deploy to DigitalOcean Kubernetes
         run: kubectl apply -f $GITHUB_WORKSPACE/k8s -n appointment-service
