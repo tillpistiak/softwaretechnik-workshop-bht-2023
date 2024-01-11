@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAmount;
+import java.util.List;
 
 @Path("/test")
 public class GreetingResource {
@@ -20,6 +21,7 @@ public class GreetingResource {
     public String hello() {
         return "Hello World!";
     }
+
     @Path("/create")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -42,11 +44,27 @@ public class GreetingResource {
         group.setName("Mustermann GmbH");
         group.persist();
 
-        AppointmentUser appointmentUser = new AppointmentUser(appointment, user, true, AppointmentStatus.ACCEPTED);
+        AppointmentUser appointmentUser = new AppointmentUser();
+        appointmentUser.setAppointment(appointment);
+        appointmentUser.setUser(user);
+        appointmentUser.setOwner(true);
+        appointmentUser.setStatus(AppointmentStatus.ACCEPTED);
         appointmentUser.persist();
 
-        GroupUser groupUser = new GroupUser(group, user, true, GroupStatus.JOINED);
+        GroupUser groupUser = new GroupUser();
+        groupUser.setGroup(group);
+        groupUser.setUser(user);
+        groupUser.setOwner(true);
+        groupUser.setStatus(GroupStatus.JOINED);
         groupUser.persist();
         return "success";
+    }
+
+    @Path("/users")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public List<User> getUsers() {
+        return User.listAll();
     }
 }

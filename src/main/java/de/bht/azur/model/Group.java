@@ -1,10 +1,9 @@
 package de.bht.azur.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "groups")
-@AllArgsConstructor
-@NoArgsConstructor
-public class Group extends PanacheEntity {
+public class Group extends PanacheEntityBase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    @Getter
+    @Setter
+    private Long id;
     @OneToMany(mappedBy = "group")
     @Getter
     @Setter
+    @JsonIgnore
     private List<GroupUser> users = new ArrayList<>();
     @Getter
     @Setter
