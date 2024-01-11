@@ -4,14 +4,17 @@ import de.bht.azur.model.*;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
+import java.math.BigInteger;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAmount;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/test")
 public class GreetingResource {
@@ -66,5 +69,17 @@ public class GreetingResource {
     @Transactional
     public List<User> getUsers() {
         return User.listAll();
+    }
+
+    @Path("/users/{id}/appointments")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public List<AppointmentUser> getAppointmentsForUser(@PathParam("id") Long userId) {
+        System.out.println(AppointmentUser.listAll().size());
+        return AppointmentUser.listAll().stream()
+                .map(appointment -> (AppointmentUser) appointment)
+                .filter(appointment -> appointment.getUser().getId().equals(userId))
+                .collect(Collectors.toList());
     }
 }

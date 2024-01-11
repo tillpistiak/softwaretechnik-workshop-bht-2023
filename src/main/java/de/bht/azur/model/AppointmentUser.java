@@ -1,5 +1,6 @@
 package de.bht.azur.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
@@ -25,6 +26,7 @@ public class AppointmentUser extends PanacheEntityBase {
     @JoinColumn(name = "user_id")
     @Getter
     @Setter
+    @JsonIgnore
     private User user;
     @Getter
     @Setter
