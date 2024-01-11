@@ -2,12 +2,15 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress
+  namespace: appointment-service
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
 spec:
-  defaultBackend:
-    service:
-      name: appointment-service
-      port:
-        number: 80
+  # defaultBackend:
+  #   service:
+  #     name: appointment-service
+  #     port:
+  #       number: 80
   rules:
     - host: swt.bht.tillpistiak.com
       http:
