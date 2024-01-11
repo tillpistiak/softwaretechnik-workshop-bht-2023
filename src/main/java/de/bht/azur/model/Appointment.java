@@ -1,21 +1,27 @@
 package de.bht.azur.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "appointment")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Appointment extends PanacheEntity {
-    @Id
-    @GeneratedValue
+    @OneToMany(mappedBy = "appointment")
     @Getter
     @Setter
-    private Long id;
+    private List<AppointmentUser> users = new ArrayList<>();
     @Getter
     @Setter
     private String description;

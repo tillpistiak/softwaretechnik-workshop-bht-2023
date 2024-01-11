@@ -4,15 +4,24 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity(name = "groups")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Group extends PanacheEntity {
-    @Id
-    @GeneratedValue
+    @OneToMany(mappedBy = "group")
     @Getter
     @Setter
-    private Long id;
-
+    private List<GroupUser> users = new ArrayList<>();
+    @Getter
+    @Setter
+    private String name;
 }
