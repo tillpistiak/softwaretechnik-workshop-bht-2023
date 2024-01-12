@@ -20,12 +20,12 @@ public class User extends PanacheEntityBase {
     @Getter
     @Setter
     private Long id;
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Getter
     @Setter
     @JsonIgnore
     private List<AppointmentUser> appointments = new ArrayList<>();
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Getter
     @Setter
     @JsonIgnore
