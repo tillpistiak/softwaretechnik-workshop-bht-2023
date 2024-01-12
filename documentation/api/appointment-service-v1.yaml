@@ -90,6 +90,96 @@ paths:
           description: Successfully deleted user
         '404':
           description: User not found
+  /users/{id}/appointments:
+    get:
+      summary: Get Appointments for User
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppointmentUser'
+  /{id}/appointments/{appid}:
+    delete:
+      summary: Remove Appointment
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+        - name: appid
+          in: path
+          description: Appointment ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No Content
+    post:
+      summary: Invite User to Appointment
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+        - name: appid
+          in: path
+          description: Appointment ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppointmentUser'
+  /{id}/appointments/{appid}/status/{status}:
+    put:
+      summary: Update Appointment Status
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+        - name: appid
+          in: path
+          description: Appointment ID
+          required: true
+          schema:
+            type: integer
+        - name: status
+          in: path
+          description: Appointment Status
+          required: true
+          schema:
+            type: string
+            enum: [ "INVITED", "DECLINED", "ACCEPTED" ]
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppointmentUser'
 
 components:
   schemas:
@@ -121,3 +211,15 @@ components:
       required:
         - givenName
         - email
+
+    AppointmentUser:
+      type: object
+      properties:
+        status:
+          type: string
+        owner:
+          type: boolean
+      required:
+        - status
+        - owner
+
