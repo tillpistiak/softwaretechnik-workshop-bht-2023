@@ -1,15 +1,18 @@
 package de.bht.azur.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.quarkus.arc.All;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 @Entity(name = "group_user")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GroupUser extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,4 +39,17 @@ public class GroupUser extends PanacheEntityBase {
     @Enumerated(EnumType.ORDINAL)
     private GroupStatus status;
 
+    public static GroupUser findGroupUser(Long userId, Long groupId) {
+        return GroupUser
+                .find("user.id = ?1 and group.id = ?2", userId, groupId)
+                .firstResult();
+    }
+
+    public static List<GroupUser> findByUserId(Long userId) {
+        return list("user.id", userId);
+    }
+
+    public static void removeGroupForUser(Long userId, Long groupId) {
+        GroupUser.delete("user.id = ?1 and group.id = ?2", userId, groupId);
+    }
 }

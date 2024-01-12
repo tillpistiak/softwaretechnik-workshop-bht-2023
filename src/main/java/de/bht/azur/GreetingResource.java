@@ -62,24 +62,4 @@ public class GreetingResource {
         groupUser.persist();
         return "success";
     }
-
-    @Path("/users")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public List<User> getUsers() {
-        return User.listAll();
-    }
-
-    @Path("/users/{id}/appointments")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public List<AppointmentUser> getAppointmentsForUser(@PathParam("id") Long userId) {
-        System.out.println(AppointmentUser.listAll().size());
-        return AppointmentUser.listAll().stream()
-                .map(appointment -> (AppointmentUser) appointment)
-                .filter(appointment -> appointment.getUser().getId().equals(userId))
-                .collect(Collectors.toList());
-    }
 }
