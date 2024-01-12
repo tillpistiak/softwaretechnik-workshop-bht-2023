@@ -1,19 +1,22 @@
 package de.bht.azur.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "appointment_user")
-@AllArgsConstructor
-@NoArgsConstructor
-public class AppointmentUser extends PanacheEntity {
+public class AppointmentUser extends PanacheEntityBase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    @Getter
+    @Setter
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "appointment_id")
     @Getter
@@ -23,11 +26,13 @@ public class AppointmentUser extends PanacheEntity {
     @JoinColumn(name = "user_id")
     @Getter
     @Setter
+    @JsonIgnore
     private User user;
     @Getter
     @Setter
     private boolean owner;
     @Getter
     @Setter
+    @Enumerated(EnumType.ORDINAL)
     private AppointmentStatus status;
 }

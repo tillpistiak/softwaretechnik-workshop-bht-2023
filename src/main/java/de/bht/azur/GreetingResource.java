@@ -4,13 +4,17 @@ import de.bht.azur.model.*;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
+import java.math.BigInteger;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAmount;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/test")
 public class GreetingResource {
@@ -20,6 +24,7 @@ public class GreetingResource {
     public String hello() {
         return "Hello World!";
     }
+
     @Path("/create")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -42,11 +47,39 @@ public class GreetingResource {
         group.setName("Mustermann GmbH");
         group.persist();
 
-        AppointmentUser appointmentUser = new AppointmentUser(appointment, user, true, AppointmentStatus.ACCEPTED);
+        AppointmentUser appointmentUser = new AppointmentUser();
+        appointmentUser.setAppointment(appointment);
+        appointmentUser.setUser(user);
+        appointmentUser.setOwner(true);
+        appointmentUser.setStatus(AppointmentStatus.ACCEPTED);
         appointmentUser.persist();
 
-        GroupUser groupUser = new GroupUser(group, user, true, GroupStatus.JOINED);
+        GroupUser groupUser = new GroupUser();
+        groupUser.setGroup(group);
+        groupUser.setUser(user);
+        groupUser.setOwner(true);
+        groupUser.setStatus(GroupStatus.JOINED);
         groupUser.persist();
         return "success";
+    }
+
+    @Path("/users")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public List<User> getUsers() {
+        return User.listAll();
+    }
+
+    @Path("/users/{id}/appointments")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public List<AppointmentUser> getAppointmentsForUser(@PathParam("id") Long userId) {
+        System.out.println(AppointmentUser.listAll().size());
+        return AppointmentUser.listAll().stream()
+                .map(appointment -> (AppointmentUser) appointment)
+                .filter(appointment -> appointment.getUser().getId().equals(userId))
+                .collect(Collectors.toList());
     }
 }

@@ -4,23 +4,28 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "appointment")
-@AllArgsConstructor
-@NoArgsConstructor
-public class Appointment extends PanacheEntity {
-    @OneToMany(mappedBy = "appointment")
+public class Appointment extends PanacheEntityBase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     @Getter
     @Setter
+    private Long id;
+
+    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER)
+    @Getter
+    @Setter
+    @JsonIgnore
     private List<AppointmentUser> users = new ArrayList<>();
     @Getter
     @Setter
@@ -34,5 +39,13 @@ public class Appointment extends PanacheEntity {
     @Getter
     @Setter
     private LocalDateTime end;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }

@@ -1,0 +1,71 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="Till Pistiak" id="1">
+        <createTable tableName="appointment">
+            <column name="id" autoIncrement="true" type="bigint(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"></column>
+            <column name="title" type="varchar(255)"></column>
+            <column name="start" type="datetime(6)"></column>
+            <column name="end" type="datetime(6)"></column>
+        </createTable>
+        <createTable tableName="user">
+            <column name="id" autoIncrement="true" type="bigint(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)"></column>
+            <column name="familyName" type="varchar(255)"></column>
+            <column name="givenName" type="varchar(255)"></column>
+        </createTable>
+        <createTable tableName="groups">
+            <column name="id" autoIncrement="true" type="bigint(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"></column>
+        </createTable>
+        <createTable tableName="appointment_user">
+            <column name="id" autoIncrement="true" type="bigint(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="appointment_id" type="bigint(20)"></column>
+            <column name="user_id" type="bigint(20)"></column>
+            <column name="owner" type="bit"></column>
+            <column name="status" type="tinyint"></column>
+        </createTable>
+        <createTable tableName="group_user">
+            <column name="id" autoIncrement="true" type="bigint(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="group_id" type="bigint(20)"></column>
+            <column name="user_id" type="bigint(20)"></column>
+            <column name="owner" type="bit"></column>
+            <column name="status" type="tinyint"></column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Till Pistiak">
+        <addForeignKeyConstraint baseTableName="group_user" baseColumnNames="group_id"
+                                 constraintName="fk_group_user_group"
+                                 referencedTableName="groups"
+                                 referencedColumnNames="id"></addForeignKeyConstraint>
+        <addForeignKeyConstraint baseTableName="group_user" baseColumnNames="user_id"
+                                 constraintName="fk_group_user_user"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"></addForeignKeyConstraint>
+        <addForeignKeyConstraint baseTableName="appointment_user" baseColumnNames="user_id"
+                                 constraintName="fk_appointment_user_user"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"></addForeignKeyConstraint>
+        <addForeignKeyConstraint baseTableName="appointment_user" baseColumnNames="appointment_id"
+                                 constraintName="fk_appointment_user_appointment"
+                                 referencedTableName="appointment"
+                                 referencedColumnNames="id"></addForeignKeyConstraint>
+    </changeSet>
+</databaseChangeLog>
