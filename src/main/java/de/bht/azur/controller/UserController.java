@@ -1,8 +1,6 @@
 package de.bht.azur.controller;
 
-import de.bht.azur.model.AppointmentStatus;
-import de.bht.azur.model.AppointmentUser;
-import de.bht.azur.model.User;
+import de.bht.azur.model.*;
 import de.bht.azur.service.UserService;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -86,5 +84,36 @@ public class UserController {
     public Response updateAppointmentStatus(@PathParam("id") Long userId, @PathParam("appid") Long appointmentId, @PathParam("status")AppointmentStatus status) {
         AppointmentUser appointmentUser = userService.updateAppointmentStatus(userId, appointmentId, status);
         return Response.accepted(appointmentUser).build();
+    }
+
+    @Path("/{id}/groups")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<GroupUser> getGroupsForUser(@PathParam("id") Long userId) {
+        return userService.getGroupsForUser(userId);
+    }
+
+    @Path("/{id}/groups/{groupid}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getGroupsForUser(@PathParam("id") Long userId, @PathParam("groupid") Long groupId) {
+        userService.removeGroup(userId, groupId);
+        return Response.noContent().build();
+    }
+
+    @Path("/{id}/groups/{appid}")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response inviteUserToGroup(@PathParam("id") Long userId, @PathParam("appid") Long groupId) {
+        GroupUser groupUser = userService.inviteUserToGroup(userId, groupId);
+        return Response.accepted(groupUser).build();
+    }
+
+    @Path("/{id}/groups/{appid}/status/{status}")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateGroupStatus(@PathParam("id") Long userId, @PathParam("appid") Long groupId, @PathParam("status") GroupStatus status) {
+        GroupUser groupUser = userService.updateGroupStatus(userId, groupId, status);
+        return Response.accepted(groupUser).build();
     }
 }

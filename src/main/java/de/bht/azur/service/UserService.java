@@ -1,9 +1,6 @@
 package de.bht.azur.service;
 
-import de.bht.azur.model.Appointment;
-import de.bht.azur.model.AppointmentStatus;
-import de.bht.azur.model.AppointmentUser;
-import de.bht.azur.model.User;
+import de.bht.azur.model.*;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
@@ -82,5 +79,37 @@ public class UserService {
         appointmentUser.setStatus(status);
         appointmentUser.persist();
         return appointmentUser;
+    }
+
+    @Transactional
+    public GroupUser updateGroupStatus(Long userId, Long groupId, GroupStatus status) {
+        GroupUser groupUser = GroupUser.findGroupUser(userId, groupId);
+        groupUser.setStatus(status);
+        groupUser.persist();
+        return groupUser;
+    }
+
+    @Transactional
+    public List<GroupUser> getGroupsForUser(Long userId) {
+        return GroupUser.findByUserId(userId);
+    }
+
+    @Transactional
+    public void removeGroup(Long userId, Long groupId) {
+        GroupUser.removeGroupForUser(userId, groupId);
+    }
+
+    @Transactional
+    public GroupUser inviteUserToGroup(Long userId, Long groupId) {
+        User user = findSingleUser(userId);
+        Group group = Group.findById(groupId);
+        GroupUser groupUser = GroupUser.builder()
+                .user(user)
+                .group(group)
+                .owner(false)
+                .status(GroupStatus.INVITED)
+                .build();
+        groupUser.persist();
+        return groupUser;
     }
 }
