@@ -24,7 +24,7 @@ jobs:
         run: sed -i 's|<CERT>|${{ secrets.TLS_CERT }}|' $GITHUB_WORKSPACE/k8s/tls-secret.yaml && sed -i 's|<KEY>|${{ secrets.TLS_KEY }}|' $GITHUB_WORKSPACE/k8s/tls-secret.yaml
 
       - name: Replace placeholders for mariadb
-        run: sed -i 's|<ROOT_PASSWORD>|${{ secrets.MYSQL_ROOT_PASSWORD }}|' $GITHUB_WORKSPACE/k8s/tls-secret.yaml && sed -i 's|<PASSWORD>|${{ secrets.MYSQL_PASSWORD }}|' $GITHUB_WORKSPACE/k8s/tls-secret.yaml
+        run: sed -i 's|<ROOT_PASSWORD>|${{ secrets.MYSQL_ROOT_PASSWORD }}|' $GITHUB_WORKSPACE/k8s/mariadb-secret.yaml && sed -i 's|<PASSWORD>|${{ secrets.MYSQL_PASSWORD }}|' $GITHUB_WORKSPACE/k8s/mariadb-secret.yaml
 
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.CLUSTER_NAME }}

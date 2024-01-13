@@ -6,7 +6,7 @@ metadata:
 data:
   application.properties: |
     quarkus.datasource.db-kind=mariadb
-    quarkus.datasource.username=user
-    quarkus.datasource.password=password
+    quarkus.datasource.username=${MARIADB_USER}
+    quarkus.datasource.password=${MARIADB_PASSWORD}
     quarkus.datasource.jdbc.url=jdbc:mariadb://mariadb-internal-service:3306/appointment_service
     quarkus.liquibase.migrate-at-start=true
