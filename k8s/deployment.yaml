@@ -16,7 +16,7 @@ spec:
       containers:
         - name: appointment-service
           image: ghcr.io/tillpistiak/softwaretechnik-workshop-bht-2023/appointment-service:latest
-          imagePullPolicy: always
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           volumeMounts:
