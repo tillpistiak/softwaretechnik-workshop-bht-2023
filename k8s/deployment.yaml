@@ -18,3 +18,13 @@ spec:
           image: ghcr.io/tillpistiak/softwaretechnik-workshop-bht-2023/appointment-service:latest
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - name: config-volume
+              mountPath: /deployments/config/application.properties
+              subPath: application.properties
+              readOnly: true
+          command: [java,-Dquarkus.config.locations=/deployments/config/application.properties,-jar,/deployments/quarkus-run.jar]
+      volumes:
+        - name: config-volume
+          configMap:
+            name: appointment-service-config

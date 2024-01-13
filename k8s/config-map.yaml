@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: appointment-service-config
+  namespace: appointment-service
+data:
+  application.properties: |
+    quarkus.datasource.db-kind=mariadb
+    quarkus.datasource.username=user
+    quarkus.datasource.password=password
+    quarkus.datasource.jdbc.url=jdbc:mariadb://mariadb-internal-service:3306/appointment_service
+    quarkus.liquibase.migrate-at-start=true
