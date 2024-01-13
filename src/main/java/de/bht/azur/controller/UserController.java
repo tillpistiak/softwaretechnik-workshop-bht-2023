@@ -7,6 +7,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,8 +75,12 @@ public class UserController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response inviteUserToAppointment(@PathParam("id") Long userId, @PathParam("appid") Long appointmentId) {
-        AppointmentUser appointmentUser = userService.inviteUserToAppointment(userId, appointmentId);
-        return Response.accepted(appointmentUser).build();
+        try {
+            AppointmentUser appointmentUser = userService.inviteUserToAppointment(userId, appointmentId);
+            return Response.accepted(appointmentUser).build();
+        } catch (ConstraintViolationException e) {
+            return Response.status(422).build();
+        }
     }
 
     @Path("/{id}/appointments/{appid}/status/{status}")

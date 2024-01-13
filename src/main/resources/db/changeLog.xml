@@ -68,4 +68,8 @@
                                  referencedTableName="appointment"
                                  referencedColumnNames="id"></addForeignKeyConstraint>
     </changeSet>
+    <changeSet id="3" author="Till Pistiak">
+        <addUniqueConstraint tableName="appointment_user" columnNames="appointment_id, user_id"></addUniqueConstraint>
+        <addUniqueConstraint tableName="group_user" columnNames="user_id, group_id"></addUniqueConstraint>
+    </changeSet>
 </databaseChangeLog>
