@@ -33,7 +33,7 @@ jobs:
         run: kubectl apply -f $GITHUB_WORKSPACE/k8s -n appointment-service
 
       - name: Restart Deployment
-        run: kubectl rollout restart appointment-service -n appointment-service
+        run: kubectl rollout restart deployment appointment-service -n appointment-service
 
       - name: Verify deployment
         run: kubectl rollout status deployment/appointment-service -n appointment-service  --timeout=15s
