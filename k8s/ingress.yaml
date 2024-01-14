@@ -12,25 +12,29 @@ spec:
   #     port:
   #       number: 80
   rules:
-    - host: swt.bht.tillpistiak.com
+    - host: swt.tillpistiak.com
       http:
         paths:
-          - path: /appointment-service
+          - path: /
             pathType: Prefix
             backend:
               service:
                 name: appointment-service
                 port:
                   number: 8080
-          - path: /grafana
+    - host: grafana-swt.tillpistiak.com
+      http:
+        paths:
+          - path: /
             pathType: Prefix
             backend:
               service:
                 name: grafana
                 port:
                   number: 3000
-#  tls:
-#    - hosts:
-#        - swt.bht.tillpistiak.com
-#      secretName: tls-secret
+  tls:
+    - hosts:
+        - swt.tillpistiak.com
+        - grafana-swt.tillpistiak.com
+      secretName: tls-secret
   ingressClassName: nginx
