@@ -6,11 +6,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
-  # defaultBackend:
-  #   service:
-  #     name: appointment-service
-  #     port:
-  #       number: 80
   rules:
     - host: swt.tillpistiak.com
       http:
