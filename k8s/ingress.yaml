@@ -21,7 +21,7 @@ spec:
               service:
                 name: appointment-service
                 port:
-                  number: 80
+                  number: 8080
   tls:
     - hosts:
         - swt.bht.tillpistiak.com
