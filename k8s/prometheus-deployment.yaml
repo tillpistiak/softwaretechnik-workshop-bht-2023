@@ -18,7 +18,6 @@ spec:
       containers:
         - name: prometheus
           image: prom/prometheus
-          user: "1000:1000"
           args:
             - "--storage.tsdb.retention.time=24h"
             - "--config.file=/etc/prometheus/prometheus.yaml"
