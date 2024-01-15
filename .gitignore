@@ -44,3 +44,6 @@ nb-configuration.xml
 
 # tls
 *.key
+
+# logs
+derby.log
