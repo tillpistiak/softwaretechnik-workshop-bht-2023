@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      ul {
+        padding: 5px;
+      }
+
+      li {
+        margin: 0px auto;
+        border-radius: 5px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      .delete {
+        background-color: #f44336 !important;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      #calendar {
+        max-width: 800px;
+        margin: 20px auto;
+      }
+    </style>
+    <title>Users</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <h1>All Users</h1>
+    <div id="usersList"></div>
+    <button onclick="showCreateForm()">Create New User</button>
+
+    <form id="createUserForm">
+      <label for="givenName">Given Name:</label>
+      <input type="text" id="givenName" required />
+
+      <label for="familyName">Family Name:</label>
+      <input type="text" id="familyName" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required />
+
+      <button type="button" onclick="createUser()">Create User</button>
+    </form>
+    <div id="calendar"></div>
+
+    <script>
+      $(document).ready(function () {
+        // Initial fetch of users
+        fetchUsers();
+        $("#createUserForm").hide();
+      });
+      function showCreateForm() {
+        $("#createUserForm").toggle();
+      }
+
+      // Function to fetch and display users
+      function fetchUsers() {
+        // Make a GET request to the /users endpoint
+        $.ajax({
+          url: `${HOST}/users`,
+          type: "GET",
+          dataType: "json",
+          success: function (data) {
+            // Process the JSON data and display it in the usersList div
+            var userListHtml = "<ul>";
+            $.each(data, function (index, user) {
+              userListHtml += `
+                <li>
+                    <b>ID:</b> ${user.id}
+                    <b>Name:</b> ${user.givenName} ${user.familyName}
+                    <b>Email:</b> ${user.email}
+                    <button onclick="editUser(${user.id})">Edit</button>
+                    <button onclick="showGroups(${user.id})">Show Groups</button>
+                    <button onclick="showAppointments(${user.id})">Show Appointments</button>
+                    <button onclick="deleteUser(${user.id})" class="delete">Delete</button>
+                </li>
+        `;
+            });
+            userListHtml += "</ul>";
+
+            $("#usersList").html(userListHtml);
+          },
+          error: function (error) {
+            console.error("Error fetching users:", error);
+            $("#usersList").html("Error fetching users. Please try again.");
+          },
+        });
+      }
+      function createUser() {
+        var givenName = $("#givenName").val();
+        var familyName = $("#familyName").val();
+        var email = $("#email").val();
+
+        var newUser = {
+          givenName: givenName,
+          familyName: familyName,
+          email: email,
+        };
+
+        // Make a POST request to the /users endpoint to create a new user
+        $.ajax({
+          url: `${HOST}/users`,
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(newUser),
+          success: function () {
+            // Reload the users list after successful creation
+            fetchUsers();
+            // Hide the create user form
+            $("#createUserForm").hide();
+            // Clear the form fields
+            $("#givenName").val("");
+            $("#familyName").val("");
+            $("#email").val("");
+          },
+          error: function (error) {
+            console.error("Error creating user:", error);
+            alert("Error creating user. Please try again.");
+          },
+        });
+      }
+
+      // Function to handle user deletion
+      function deleteUser(userId) {
+        // Make a DELETE request to the /users/{id} endpoint
+        $.ajax({
+          url: `${HOST}/users/${userId}`,
+          type: "DELETE",
+          success: function () {
+            // Reload the users list after successful deletion
+            fetchUsers();
+          },
+          error: function (error) {
+            console.error("Error deleting user:", error);
+            alert("Error deleting user. Please try again.");
+          },
+        });
+      }
+      function editUser(userId) {
+        // Fetch the user data for the given ID
+        $.ajax({
+          url: `${HOST}/users/${userId}`,
+          type: "GET",
+          dataType: "json",
+          success: function (user) {
+            // Allow the user to input new data
+            var givenName = prompt("Enter new given name:", user.givenName);
+            var familyName = prompt("Enter new family name:", user.familyName);
+            var email = prompt("Enter new email:", user.email);
+
+            // Update the user data
+            var updatedUser = {
+              givenName: givenName,
+              familyName: familyName,
+              email: email,
+            };
+
+            // Make a PUT request to the /users/{id} endpoint to update the user
+            $.ajax({
+              url: `${HOST}/users/${userId}`,
+              type: "PUT",
+              contentType: "application/json",
+              data: JSON.stringify(updatedUser),
+              success: function () {
+                // Reload the users list after successful update
+                fetchUsers();
+              },
+              error: function (error) {
+                console.error("Error updating user:", error);
+                alert("Error updating user. Please try again.");
+              },
+            });
+          },
+          error: function (error) {
+            console.error("Error fetching user data:", error);
+            alert("Error fetching user data. Please try again.");
+          },
+        });
+      }
+      function showGroups(userId) {
+        // Make a GET request to the /users/{id}/groups endpoint
+        $.ajax({
+          url: `${HOST}/users/${userId}/groups`,
+          type: "GET",
+          dataType: "json",
+          success: function (groups) {
+            // Display the group information for the user
+            var groupList = "";
+            $.each(groups, function (index, group) {
+              groupList += `
+Group ID: ${group.group.id}, 
+Group Name: ${group.group.name}, 
+Owner: ${group.owner ? "Yes" : "No"}, 
+Status: ${group.status}
+            `;
+            });
+
+            alert("User Groups:\n" + groupList);
+          },
+          error: function (error) {
+            console.error("Error fetching user groups:", error);
+            alert("Error fetching user groups. Please try again.");
+          },
+        });
+      }
+      function showAppointments(userId) {
+        // Make a GET request to the /users/{id}/appointments endpoint
+        $.ajax({
+          url: `${HOST}/users/${userId}/appointments`,
+          type: "GET",
+          dataType: "json",
+          success: function (appointments) {
+            // Initialize the FullCalendar
+            $("#calendar").fullCalendar("destroy");
+            $("#calendar").fullCalendar({
+              header: {
+                left: "prev,next today",
+                center: "title",
+                right: "month,agendaWeek,agendaDay",
+              },
+              events: formatAppointmentsForCalendar(appointments),
+              eventRender: function (event, element) {
+                // Customize the appearance of each event based on its status
+                switch (event.status) {
+                  case "INVITED":
+                    element.css("background-color", "#FFD700"); // Yellow
+                    break;
+                  case "ACCEPTED":
+                    element.css("background-color", "#00FF00"); // Green
+                    break;
+                  case "DECLINED":
+                    element.css("background-color", "#FF0000"); // Red
+                    break;
+                }
+              },
+            });
+          },
+          error: function (error) {
+            console.error("Error fetching user appointments:", error);
+            alert("Error fetching user appointments. Please try again.");
+          },
+        });
+      }
+      function formatAppointmentsForCalendar(appointments) {
+        return appointments.map(function (appointment) {
+          return {
+            title: appointment.appointment.title,
+            start: appointment.appointment.start,
+            end: appointment.appointment.end,
+            status: appointment.status,
+          };
+        });
+      }
+    </script>
+  </body>
+</html>

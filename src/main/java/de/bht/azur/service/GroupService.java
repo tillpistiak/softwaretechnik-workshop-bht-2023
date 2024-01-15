@@ -3,6 +3,7 @@ package de.bht.azur.service;
 import de.bht.azur.model.Group;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
 
 import java.util.List;
 
@@ -10,7 +11,11 @@ import java.util.List;
 public class GroupService {
     @Transactional
     public Group findSingleGroup(Long groupId) {
-        return Group.findById(groupId);
+        Group group = Group.findById(groupId);
+        if(group == null) {
+            throw new NotFoundException();
+        }
+        return group;
     }
 
     @Transactional

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointments</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      ul {
+        padding: 5px;
+      }
+
+      li {
+        margin: 5px;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+      }
+
+      input[type="datetime-local"] {
+        width: 95%;
+      }
+
+      input[type="submit"] {
+        background-color: #008cba;
+        color: white;
+      }
+
+      .delete {
+        background-color: #f44336 !important;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <h1>All Appointments</h1>
+    <div id="appointmentsList"></div>
+
+    <button onclick="showAddForm()">Add New Appointment</button>
+
+    <form id="addAppointmentForm" style="display: none">
+      <label for="title">Title:</label>
+      <input type="text" id="title" required />
+
+      <label for="description">Description:</label>
+      <textarea id="description" required></textarea>
+
+      <label for="start">Start Date & Time:</label>
+      <input type="datetime-local" id="start" required />
+
+      <label for="end">End Date & Time:</label>
+      <input type="datetime-local" id="end" required />
+
+      <button type="button" onclick="addAppointment()">Add Appointment</button>
+    </form>
+    <form id="editAppointmentForm" style="display: none">
+      <label for="editTitle">Title:</label>
+      <input type="text" id="editTitle" required />
+
+      <label for="editDescription">Description:</label>
+      <textarea id="editDescription" required></textarea>
+
+      <label for="editStart">Start Date & Time:</label>
+      <input type="datetime-local" id="editStart" required />
+
+      <label for="editEnd">End Date & Time:</label>
+      <input type="datetime-local" id="editEnd" required />
+
+      <button type="button" id="updateAppointment">Update Appointment</button>
+      <button
+        type="button"
+        class="delete"
+        onclick="$('#editAppointmentForm').hide()"
+      >
+        Close
+      </button>
+    </form>
+    <div id="userSelectionModal" style="display: none" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeUserSelectionModal()">&times;</span>
+        <label for="userSelection">Select User:</label>
+        <select id="userSelection"></select>
+        <button id="inviteUser">Invite</button>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        fetchAppointments();
+      });
+
+      function fetchAppointments() {
+        // Make a GET request to the /appointments endpoint
+        $.ajax({
+          url: `${HOST}/appointments`,
+          type: "GET",
+          dataType: "json",
+          success: function (appointments) {
+            displayAppointments(appointments);
+          },
+          error: function (error) {
+            console.error("Error fetching appointments:", error);
+            alert("Error fetching appointments. Please try again.");
+          },
+        });
+      }
+
+      function displayAppointments(appointments) {
+        // Display the list of appointments
+        var appointmentsListHtml = "<ul>";
+        $.each(appointments, function (index, appointment) {
+          appointmentsListHtml += `
+              <li>
+                <b>Title:</b> ${appointment.title}
+                <b>Description:</b> ${appointment.description}
+                <b>Start:</b> ${appointment.start}
+                <b>End:</b> ${appointment.end}
+                <button onclick="editAppointment(${appointment.id})">Edit</button>
+                <button onclick="inviteUserToAppointment(${appointment.id})">Invite Users</button>
+                <button onclick="deleteAppointment(${appointment.id})" class="delete">Delete</button>
+              </li>
+            `;
+        });
+        appointmentsListHtml += "</ul>";
+
+        $("#appointmentsList").html(appointmentsListHtml);
+      }
+
+      function showAddForm() {
+        $("#addAppointmentForm").toggle();
+      }
+
+      function addAppointment() {
+        var title = $("#title").val();
+        var description = $("#description").val();
+        var start = $("#start").val();
+        var end = $("#end").val();
+
+        var newAppointment = {
+          title: title,
+          description: description,
+          start: start,
+          end: end,
+        };
+
+        // Make a POST request to the /appointments endpoint to add a new appointment
+        $.ajax({
+          url: `${HOST}/appointments`,
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(newAppointment),
+          success: function () {
+            // Reload the appointments list after successful addition
+            fetchAppointments();
+            // Hide the add appointment form
+            $("#addAppointmentForm").hide();
+            // Clear the form fields
+            $("#title").val("");
+            $("#description").val("");
+            $("#start").val("");
+            $("#end").val("");
+          },
+          error: function (error) {
+            console.error("Error adding appointment:", error);
+            alert("Error adding appointment. Please try again.");
+          },
+        });
+      }
+
+      function editAppointment(appointmentId) {
+        // Make a GET request to fetch appointment details
+        $.ajax({
+          url: `${HOST}/appointments/${appointmentId}`,
+          type: "GET",
+          dataType: "json",
+          success: function (appointment) {
+            // Display the appointment details in the edit form
+            $("#editTitle").val(appointment.title);
+            $("#editDescription").val(appointment.description);
+            $("#editStart").val(appointment.start);
+            $("#editEnd").val(appointment.end);
+
+            // Show the edit appointment form
+            $("#editAppointmentForm").show();
+            $("#updateAppointment").click(function () {
+              // Make a PUT request to the /appointments/{id} endpoint to update the appointment
+              $.ajax({
+                url: `${HOST}/appointments/${appointmentId}`,
+                type: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify({
+                  title: $("#editTitle").val(),
+                  description: $("#editDescription").val(),
+                  start: $("#editStart").val(),
+                  end: $("#editEnd").val(),
+                }),
+                success: function () {
+                  // Reload the appointments list after successful update
+                  fetchAppointments();
+                  // Hide the edit appointment form
+                  $("#editAppointmentForm").hide();
+                },
+                error: function (error) {
+                  console.error("Error updating appointment:", error);
+                  alert("Error updating appointment. Please try again.");
+                },
+              });
+            });
+          },
+          error: function (error) {
+            console.error("Error fetching appointment details:", error);
+            alert("Error fetching appointment details. Please try again.");
+          },
+        });
+      }
+
+      function deleteAppointment(appointmentId) {
+        // Implement the logic to delete an appointment
+        // You can use a similar approach as used in the previous examples
+        // - Make a DELETE request to the /appointments/{id} endpoint
+        // - Reload the appointments list after successful deletion
+        $.ajax({
+          url: `${HOST}/appointments/${appointmentId}`,
+          type: "DELETE",
+          success: function () {
+            // Reload the appointments list after successful deletion
+            fetchAppointments();
+          },
+          error: function (error) {
+            console.error("Error deleting appointment:", error);
+            alert("Error deleting appointment. Please try again.");
+          },
+        });
+      }
+
+      function inviteUsers(appointmentId) {
+        // Fetch all users
+        $.ajax({
+          url: `${HOST}/users`,
+          type: "GET",
+          dataType: "json",
+          success: function (users) {
+            // Display a list of users for selection
+            var userSelectionHtml = '<select id="userSelection">';
+            $.each(users, function (index, user) {
+              userSelectionHtml += `<option value="${user.id}">${user.givenName} ${user.familyName}</option>`;
+            });
+            userSelectionHtml += "</select>";
+
+            // Show a prompt to select a user
+            var selectedUserId = prompt(
+              "Select a user to invite:",
+              userSelectionHtml
+            );
+            if (selectedUserId) {
+              // Make a POST request to invite the selected user to the appointment
+              $.ajax({
+                url: `${HOST}/users/${selectedUserId}/appointments/${appointmentId}`,
+                type: "POST",
+                success: function () {
+                  // Reload the appointments list after successful invitation
+                  fetchAppointments();
+                },
+                error: function (error) {
+                  console.error("Error inviting user to appointment:", error);
+                  alert(
+                    "Error inviting user to appointment. Please try again."
+                  );
+                },
+              });
+            }
+          },
+          error: function (error) {
+            console.error("Error fetching users for invitation:", error);
+            alert("Error fetching users for invitation. Please try again.");
+          },
+        });
+      }
+
+      function inviteUserToAppointment(appointmentId) {
+        // Fetch all users
+        $.ajax({
+          url: `${HOST}/users`,
+          type: "GET",
+          dataType: "json",
+          success: function (users) {
+            // Display the user selection modal
+            displayUserSelectionModal(users);
+            $("#inviteUser").click(function () {
+              sendInvitation(appointmentId);
+            });
+          },
+          error: function (error) {
+            console.error("Error fetching users for invitation:", error);
+            alert("Error fetching users for invitation. Please try again.");
+          },
+        });
+      }
+
+      function displayUserSelectionModal(users) {
+        var userSelectionDropdown = $("#userSelection");
+        userSelectionDropdown.empty();
+
+        // Populate the user selection dropdown
+        $.each(users, function (index, user) {
+          userSelectionDropdown.append(
+            `<option value="${user.id}">${user.givenName} ${user.familyName}</option>`
+          );
+        });
+
+        // Show the user selection modal
+        var modal = document.getElementById("userSelectionModal");
+        modal.style.display = "block";
+      }
+
+      function closeUserSelectionModal() {
+        // Close the user selection modal
+        var modal = document.getElementById("userSelectionModal");
+        modal.style.display = "none";
+      }
+
+      function sendInvitation(appointmentId) {
+        console.log("Inviting user to appointment:", appointmentId);
+        // Get the selected user ID
+        var selectedUserId = $("#userSelection").val();
+
+        if (selectedUserId) {
+          // Make a POST request to invite the selected user to the appointment
+          $.ajax({
+            url: `${HOST}/users/${selectedUserId}/appointments/${appointmentId}`,
+            type: "POST",
+            success: function () {
+              // Reload the appointments list after successful invitation
+              fetchAppointments();
+              // Close the user selection modal
+              closeUserSelectionModal();
+            },
+            error: function (error) {
+              console.error("Error inviting user to appointment:", error);
+              alert("Error inviting user to appointment. Please try again.");
+            },
+          });
+        }
+      }
+    </script>
+  </body>
+</html>
