@@ -149,7 +149,7 @@ public class UserControllerTest {
 
         // user accepts invitation
         given()
-                .when().put("/users/" + user_id + "/appointments/1/status/ACCEPTED")
+                .when().put("/users/" + user_id + "/appointments/" + appointment_id + "/status/ACCEPTED")
                 .then()
                 .statusCode(202);
 
@@ -174,6 +174,7 @@ public class UserControllerTest {
                 .statusCode(200)
                 .body("", hasSize(0));
     }
+
     @Test
     public void testUserGroups() {
         User user = new User();
@@ -227,7 +228,7 @@ public class UserControllerTest {
 
         // user accepts invitation
         given()
-                .when().put("/users/" + user_id + "/groups/1/status/JOINED")
+                .when().put("/users/" + user_id + "/groups/" + group_id + "/status/JOINED")
                 .then()
                 .statusCode(202);
 
