@@ -20,7 +20,7 @@ public class Group extends PanacheEntityBase {
     @Getter
     @Setter
     private Long id;
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
     @Getter
     @Setter
     @JsonIgnore

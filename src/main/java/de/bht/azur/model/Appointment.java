@@ -22,7 +22,7 @@ public class Appointment extends PanacheEntityBase {
     @Setter
     private Long id;
 
-    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Getter
     @Setter
     @JsonIgnore
@@ -35,9 +35,11 @@ public class Appointment extends PanacheEntityBase {
     private String title;
     @Getter
     @Setter
+    @Column(name = "start_date")
     private LocalDateTime start;
     @Getter
     @Setter
+    @Column(name = "end_date")
     private LocalDateTime end;
 
     public Long getId() {

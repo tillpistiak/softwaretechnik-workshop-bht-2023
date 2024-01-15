@@ -14,10 +14,10 @@
             </column>
             <column name="description" type="varchar(255)"></column>
             <column name="title" type="varchar(255)"></column>
-            <column name="start" type="datetime(6)"></column>
-            <column name="end" type="datetime(6)"></column>
+            <column name="start_date" type="datetime(6)"></column>
+            <column name="end_date" type="datetime(6)"></column>
         </createTable>
-        <createTable tableName="user">
+        <createTable tableName="users">
             <column name="id" autoIncrement="true" type="bigint(20)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -57,11 +57,11 @@
                                  referencedColumnNames="id"></addForeignKeyConstraint>
         <addForeignKeyConstraint baseTableName="group_user" baseColumnNames="user_id"
                                  constraintName="fk_group_user_user"
-                                 referencedTableName="user"
+                                 referencedTableName="users"
                                  referencedColumnNames="id"></addForeignKeyConstraint>
         <addForeignKeyConstraint baseTableName="appointment_user" baseColumnNames="user_id"
                                  constraintName="fk_appointment_user_user"
-                                 referencedTableName="user"
+                                 referencedTableName="users"
                                  referencedColumnNames="id"></addForeignKeyConstraint>
         <addForeignKeyConstraint baseTableName="appointment_user" baseColumnNames="appointment_id"
                                  constraintName="fk_appointment_user_appointment"
