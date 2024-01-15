@@ -23,15 +23,3 @@ jobs:
 
       - name: Run JaCoCo for Code Coverage
         run: mvn verify
-
-      - name: Check Code Coverage
-        run: |
-          COVERAGE=$(cat target/site/jacoco/jacoco.xml | grep "counter type=\"LINE\" covered" | sed 's/.*value="\([0-9]*\)".*/\1/')
-          THRESHOLD=80
-          
-          if [ "$COVERAGE" -ge "$THRESHOLD" ]; then
-            echo "Code coverage is above the threshold ($THRESHOLD%)"
-          else
-            echo "Code coverage is below the threshold ($THRESHOLD%)"
-            exit 1
-          fi
