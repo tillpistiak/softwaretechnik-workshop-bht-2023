@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Appointment Service
   version: 1.0.0
-  description: API for managing appointments and users
+  description: API for managing users,groups and appointments
 
 paths:
   /users:
@@ -350,7 +350,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppointmentUser'
-
 components:
   schemas:
     User:
@@ -390,32 +389,35 @@ components:
           type: string
         title:
           type: string
-        start_date:
+        start:
           type: string
           format: date-time
-        end_date:
+        end:
           type: string
           format: date-time
       required:
-          - title
-          - appointmentid
+        - id
+        - title 
     AppointmentRequest:
         type: object
         properties:
+          id:
+            type: integer
+            format: int64
           description:
             type: string 
           title:
             type: string
-          start_date:
+          start:
             type: string
             format: date-time
-          end_date:
+          end:
             type: string
             format: date-time
         required:
-          - title
-          - start_date
-          - end_date
+          - id
+          - start
+          - end
     Group:
       type: object
       properties:
@@ -427,7 +429,6 @@ components:
       required:
         - id
         - name
-
     GroupRequest:
       type: object
       properties:
@@ -437,9 +438,8 @@ components:
         name:
           type: string
       required:
+        - id
         - name
-        
-
     AppointmentUser:
       type: object
       properties:
@@ -450,4 +450,3 @@ components:
       required:
         - status
         - owner
-
