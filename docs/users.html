@@ -31,6 +31,9 @@
         cursor: pointer;
         margin: 5px;
       }
+      .delete {
+        background-color: #f44336 !important;
+      }
 
       button:hover {
         background-color: #45a049;
@@ -41,13 +44,14 @@
         margin: 20px auto;
       }
     </style>
-    <title>Fetch and Delete Users</title>
+    <title>Users</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="main.js"></script>
   </head>
   <body>
+    <h1>All Users</h1>
     <div id="usersList"></div>
     <button onclick="showCreateForm()">Create New User</button>
 
@@ -94,7 +98,7 @@
                     <button onclick="editUser(${user.id})">Edit</button>
                     <button onclick="showGroups(${user.id})">Show Groups</button>
                     <button onclick="showAppointments(${user.id})">Show Appointments</button>
-                    <button onclick="deleteUser(${user.id})">Delete</button>
+                    <button onclick="deleteUser(${user.id})" class="delete">Delete</button>
                 </li>
         `;
             });
