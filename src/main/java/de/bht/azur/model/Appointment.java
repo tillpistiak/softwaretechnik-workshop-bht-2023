@@ -22,7 +22,7 @@ public class Appointment extends PanacheEntityBase {
     @Setter
     private Long id;
 
-    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Getter
     @Setter
     @JsonIgnore

@@ -15,14 +15,14 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
 
     @GET
-    @Path("/getAll")
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Appointment> getAllAppointments() {
         return appointmentService.getAllAppointments();
     }
 
     @POST
-    @Path("/create")
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addNewAppointment(Appointment newAppointment) {
@@ -31,14 +31,14 @@ public class AppointmentController {
     }
 
     @GET
-    @Path("/get/{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Appointment getAppointment(@PathParam("id") Long appointmentId) {
         return appointmentService.findSingleAppointment(appointmentId);
     }
 
     @PUT
-    @Path("/update/{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateAppointment(@PathParam("id") Long appointmentId, Appointment appointment) {
         Appointment updatedAppointment = appointmentService.updateAppointment(appointmentId, appointment);
@@ -46,7 +46,7 @@ public class AppointmentController {
     }
 
     @DELETE
-    @Path("/delete/{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteAppointment(@PathParam("id") Long appointmentId) {
         appointmentService.deleteAppointment(appointmentId);

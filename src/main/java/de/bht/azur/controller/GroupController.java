@@ -17,15 +17,15 @@ import java.util.stream.Collectors;
 public class GroupController {
     private final GroupService groupService;
 
-    @Path("/")
     @GET
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Group> getAllGroups() {
         return groupService.getAllGroups();
     }
 
-    @Path("/")
     @POST
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addNewGroup(Group newGroup) {
@@ -33,23 +33,23 @@ public class GroupController {
         return Response.accepted(newGroup).build();
     }
 
-    @Path("/{id}")
     @GET
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Group getGroup(@PathParam("id") Long groupId) {
         return groupService.findSingleGroup(groupId);
     }
 
-    @Path("/{id}")
     @PUT
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateGroup(@PathParam("id") Long groupId, Group group) {
         Group updatedGroup = groupService.updateGroup(groupId, group);
         return Response.accepted(updatedGroup).build();
     }
 
-    @Path("/{id}")
     @DELETE
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteGroup(@PathParam("id") Long groupId) {
         groupService.deleteGroup(groupId);
