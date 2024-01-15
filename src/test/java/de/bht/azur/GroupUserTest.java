@@ -1,17 +1,17 @@
-package de.bht.azur.model;
+package de.bht.azur;
 
+import de.bht.azur.model.GroupUser;
+import io.quarkus.test.InjectMock;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.mockito.InjectMock;
 
 import java.util.Arrays;
 import java.util.List;
 
-@QuarkusTest
 public class GroupUserTest {
 
     @InjectMock
