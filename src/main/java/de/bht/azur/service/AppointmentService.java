@@ -3,6 +3,7 @@ package de.bht.azur.service;
 import de.bht.azur.model.Appointment;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
 
 import java.util.List;
 
@@ -11,7 +12,11 @@ public class AppointmentService {
 
     @Transactional
     public Appointment findSingleAppointment(Long appointmentId) {
-        return Appointment.findById(appointmentId);
+         Appointment appointment = Appointment.findById(appointmentId);
+         if (appointment == null) {
+             throw new NotFoundException();
+         }
+         return appointment;
     }
 
     @Transactional

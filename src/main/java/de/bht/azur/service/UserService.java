@@ -3,10 +3,7 @@ package de.bht.azur.service;
 import de.bht.azur.model.*;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import lombok.RequiredArgsConstructor;
 
@@ -31,7 +28,11 @@ public class UserService {
 
     @Transactional
     public User findSingleUser(Long userId) {
-        return User.findById(userId);
+        User user = User.findById(userId);
+        if(user == null) {
+            throw new NotFoundException();
+        }
+        return user;
     }
 
     @Transactional
