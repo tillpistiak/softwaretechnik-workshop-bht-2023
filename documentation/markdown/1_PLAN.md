@@ -19,6 +19,7 @@
     - [Reaktionszeit](#reaktionszeit)
     - [Wiederherstellungszeit](#wiederherstellungszeit)
     - [Wartungszugang erforderlich?](#wartungszugang-erforderlich)
+  - [Tools](#tools)
 ## 1 Systemkomponenten
 ### Infrastruktur
 Backend
@@ -30,9 +31,12 @@ Frontend
 
 CI/CD
 - Github Actions
+- Grafana
+- Prometheus
   
 DB
 - MariaDB
+- Derby (Testing)
 
 ![components](documentation/diagrams/components.png)
 
@@ -86,3 +90,23 @@ Github free tier
 ### Reaktionszeit
 ### Wiederherstellungszeit
 ### Wartungszugang erforderlich?
+
+## Tools 
+- IDE
+  - IntelliJ
+  - Visual Studio Code
+- Database Administration
+  - Adminer
+- Diagrams
+  - draw.io
+- Source Control
+  - Github: https://github.com/tillpistiak/softwaretechnik-workshop-bht-2023
+- API Testing
+  - Postman
+- Kommunikation
+  - kurzfristig: WhatsApp
+  - calls: Discord
+- Projektmanagement
+  - Trello: https://trello.com/b/FcsMDrNv/softwaretechnik-projekt
+  - Github 
+  
