@@ -401,9 +401,6 @@ components:
     AppointmentRequest:
         type: object
         properties:
-          id:
-            type: integer
-            format: int64
           description:
             type: string 
           title:
@@ -432,9 +429,6 @@ components:
     GroupRequest:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
         name:
           type: string
       required:
