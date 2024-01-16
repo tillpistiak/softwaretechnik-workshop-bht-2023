@@ -7,6 +7,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.derby.DerbyDatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
@@ -19,7 +20,12 @@ import static org.hamcrest.Matchers.hasSize;
 
 @QuarkusTest
 @QuarkusTestResource(DerbyDatabaseTestResource.class)
-public class AppointmentControllerTest {
+public class AppointmentControllerTest extends ParentTest{
+
+        @BeforeEach
+        void beforeEach() {
+                cleanup();
+        }
 
         @Test
         public void testGetAppointments() {

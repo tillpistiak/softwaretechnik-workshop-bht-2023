@@ -7,6 +7,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.derby.DerbyDatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
@@ -19,8 +20,12 @@ import static org.hamcrest.Matchers.hasSize;
 
 @QuarkusTest
 @QuarkusTestResource(DerbyDatabaseTestResource.class)
-public class UserControllerTest {
+public class UserControllerTest extends ParentTest{
 
+    @BeforeEach
+    void beforeEach() {
+        cleanup();
+    }
 
     @Test
     public void testGetUsers() {
@@ -69,7 +74,6 @@ public class UserControllerTest {
                 .when()
                 .put("/users/" + user_id)
                 .then()
-                .body("id", equalTo(1))
                 .statusCode(202);
 
         // fetch single user

@@ -56,4 +56,16 @@ public class GroupController {
         return Response.noContent().build();
     }
 
+    @Path("/{id}/appointments/{appid}")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response inviteUserToAppointment(@PathParam("id") Long groupId, @PathParam("appid") Long appointmentId) {
+        try {
+            List<AppointmentUser> appointmentUser = groupService.inviteGroupToAppointment(groupId, appointmentId);
+            return Response.accepted(appointmentUser).build();
+        } catch (ConstraintViolationException e) {
+            return Response.status(422).build();
+        }
+    }
+
 }

@@ -208,6 +208,33 @@ paths:
         '400':
           description: Bad request, validation error
 
+  /groups/{groupId}/appointments/{appointmentId}:
+    parameters:
+      - name: groupId
+        in: path
+        required: true
+        description: ID of the group
+        schema:
+          type: integer
+          format: int64
+      - name: appointmentId
+        in: path
+        required: true
+        description: ID of the appointment
+        schema:
+          type: integer
+          format: int64
+    post:
+      summary: Invite all group members to appointment
+      description: Invite all group members to appointment
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppointmentUser'
+
   /groups/{groupId}:
     parameters:
       - name: groupId
@@ -279,7 +306,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AppointmentUser'
-  /{id}/appointments/{appid}:
+  /users/{id}/appointments/{appid}:
     delete:
       summary: Remove Appointment
       parameters:
@@ -320,7 +347,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppointmentUser'
-  /{id}/appointments/{appid}/status/{status}:
+  /users/{id}/appointments/{appid}/status/{status}:
     put:
       summary: Update Appointment Status
       parameters:
