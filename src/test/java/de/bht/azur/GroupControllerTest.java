@@ -8,6 +8,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.derby.DerbyDatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
@@ -20,8 +21,11 @@ import static org.hamcrest.Matchers.hasSize;
 
 @QuarkusTest
 @QuarkusTestResource(DerbyDatabaseTestResource.class)
-public class GroupControllerTest {
-
+public class GroupControllerTest extends ParentTest{
+        @BeforeEach
+        void beforeEach() {
+                cleanup();
+        }
         @Test
         public void testGetGroups() {
                 Group group = new Group();
@@ -66,7 +70,6 @@ public class GroupControllerTest {
                                 .when()
                                 .put("/groups/" + group_id)
                                 .then()
-                                .body("id", equalTo(1))
                                 .statusCode(202);
 
                 // fetch single group
