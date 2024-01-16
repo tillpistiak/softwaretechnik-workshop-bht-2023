@@ -1,6 +1,6 @@
-# Softwaretechnik Workshop Gruppe 7
+# PLAN (Konzept)
 ## Inhaltsverzeichnis
-- [Softwaretechnik Workshop Gruppe 7](#softwaretechnik-workshop-gruppe-7)
+- [PLAN (Konzept)](#plan-konzept)
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
   - [1 Systemkomponenten](#1-systemkomponenten)
     - [Infrastruktur](#infrastruktur)
