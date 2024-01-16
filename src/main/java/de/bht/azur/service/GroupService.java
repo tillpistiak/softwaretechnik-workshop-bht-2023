@@ -4,6 +4,7 @@ import de.bht.azur.model.Appointment;
 import de.bht.azur.model.AppointmentStatus;
 import de.bht.azur.model.AppointmentUser;
 import de.bht.azur.model.Group;
+import de.bht.azur.model.GroupStatus;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
@@ -16,10 +17,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GroupService {
     private final AppointmentService appointmentService;
+
     @Transactional
     public Group findSingleGroup(Long groupId) {
         Group group = Group.findById(groupId);
-        if(group == null) {
+        if (group == null) {
             throw new NotFoundException();
         }
         return group;
@@ -52,8 +54,9 @@ public class GroupService {
     public List<AppointmentUser> inviteGroupToAppointment(Long groupId, Long appointmentId) {
         Group group = findSingleGroup(groupId);
         Appointment appointment = appointmentService.findSingleAppointment(appointmentId);
-        return  group.getUsers()
+        return group.getUsers()
                 .stream()
+                .filter(user -> user.getStatus() == GroupStatus.JOINED)
                 .map(user -> {
                     AppointmentUser appointmentUser = AppointmentUser.builder()
                             .user(user.getUser())
