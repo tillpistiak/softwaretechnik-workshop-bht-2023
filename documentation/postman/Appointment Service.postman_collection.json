@@ -7,6 +7,251 @@
 	},
 	"item": [
 		{
+			"name": "/appointments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/appointments/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"appointments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/appointments/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/appointments/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"appointments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/appointments/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/appointments/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"appointments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/appointments",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Work Event\",\n    \"title\": \"New Years\",\n    \"start\": \"2024-01-01T20:49:33.203631\",\n    \"end\": \"2024-01-01T22:49:33.203654\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/appointments",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"appointments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/appointments/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Work Events\",\n    \"title\": \"New Years\",\n    \"start\": \"2024-01-01T20:49:33.203631\",\n    \"end\": \"2024-01-01T22:49:33.203654\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/appointments/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"appointments",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/groups/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"groups",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/groups/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"groups",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/groups/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"groups",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Work\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/groups",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Work Group\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/groups/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"groups",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups/{id}/appointments/{id}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/groups/1/appointments/8",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"groups",
+						"1",
+						"appointments",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "/users",
 			"request": {
 				"method": "GET",
@@ -50,14 +295,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/1",
+					"raw": "localhost:8080/users/4",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"users",
-						"1"
+						"4"
 					]
 				}
 			},
@@ -70,7 +315,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"givenName\": \"Jannik\",\n    \"familyName\": \"Mustermann\",\n    \"email\": \"test@test.de\"\n}",
+					"raw": "{\n    \"givenName\": \"Geo\",\n    \"familyName\": \"Mustermann\",\n    \"email\": \"test@test.de\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -97,7 +342,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"givenName\": \"Peter2\",\n    \"familyName\": \"Mustermann\",\n    \"email\": \"test@test.de\"\n}",
+					"raw": "{\n    \"givenName\": \"Geo\",\n    \"familyName\": \"Glissmann\",\n    \"email\": \"test@test.de\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -105,14 +350,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/users/1",
+					"raw": "localhost:8080/users/5",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"users",
-						"1"
+						"5"
 					]
 				}
 			},
@@ -165,16 +410,16 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/4/appointments/2",
+					"raw": "localhost:8080/users/3/appointments/3",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"users",
-						"4",
+						"3",
 						"appointments",
-						"2"
+						"3"
 					]
 				}
 			},
@@ -183,18 +428,21 @@
 		{
 			"name": "/users/{id}/appointments/{id}/status",
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/4/appointments",
+					"raw": "localhost:8080/users/5/appointments/3/status/ACCEPTED",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"users",
-						"4",
-						"appointments"
+						"5",
+						"appointments",
+						"3",
+						"status",
+						"ACCEPTED"
 					]
 				}
 			},
@@ -206,14 +454,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/4/groups",
+					"raw": "localhost:8080/users/5/groups",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"users",
-						"4",
+						"5",
 						"groups"
 					]
 				}
