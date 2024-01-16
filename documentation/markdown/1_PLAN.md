@@ -14,11 +14,11 @@
     - [Autarke Anteile](#autarke-anteile)
     - [Darstellung Aufbau](#darstellung-aufbau)
   - [4 Support](#4-support)
-    - [Entry point für Incidents](#entry-point-für-incidents)
-    - [Supportzeit](#supportzeit)
-    - [Reaktionszeit](#reaktionszeit)
-    - [Wiederherstellungszeit](#wiederherstellungszeit)
-    - [Wartungszugang erforderlich?](#wartungszugang-erforderlich)
+  - [Entry Point für Incidents:](#entry-point-für-incidents)
+  - [Supportzeit:](#supportzeit)
+  - [Reaktionszeit:](#reaktionszeit)
+  - [Wiederherstellungszeit:](#wiederherstellungszeit)
+  - [Wartungszugang erforderlich:](#wartungszugang-erforderlich)
   - [Tools](#tools)
 ## 1 Systemkomponenten
 ### Infrastruktur
@@ -85,11 +85,30 @@ Github free tier
 - Digital Ocean K8s
 ### Darstellung Aufbau
 ## 4 Support
-### Entry point für Incidents
-### Supportzeit
-### Reaktionszeit
-### Wiederherstellungszeit
-### Wartungszugang erforderlich?
+
+## Entry Point für Incidents:
+- Helpdesk: [support@appointmentservice.com]
+- Hotline: [+15072 778500]
+- Reaktionszeit: Innerhalb von 24 Stunden
+- Kritische Probleme: Sofortige Reaktion, idealerweise innerhalb von 2 Stunden
+
+## Supportzeit:
+- Montag bis Freitag: 9:00 bis 17:00 Uhr (UTC)
+- Live-Support während dieser Zeiten
+- 24/7-Support für Premium-Nutzer
+
+## Reaktionszeit:
+- Nicht dringende Anfragen: Innerhalb von 24 Stunden
+- Kritische Probleme (Hotline): Innerhalb von 2 Stunden
+
+## Wiederherstellungszeit:
+- Kritische Probleme: Innerhalb von 2 Stunden
+- Nicht dringende Probleme: Innerhalb von 2-3 Werktagen
+
+## Wartungszugang erforderlich:
+- Vorankündigung von Wartungsarbeiten
+- Durchführung während Zeiten geringer Nutzung
+- Klare Anweisungen für Nutzer während Wartungsarbeiten
 
 ## Tools 
 - IDE
