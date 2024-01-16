@@ -29,11 +29,11 @@ With Micrometer, you can easily collect and expose metrics from your application
 TBD
 
 ## Prometheus
-Prometheus is an open-source monitoring and alerting system that is widely used in the software development industry. It is designed to collect and store time-series data, allowing you to monitor the performance and health of your applications and infrastructure.
+*Prometheus is an open-source monitoring and alerting system that is widely used in the software development industry. It is designed to collect and store time-series data, allowing you to monitor the performance and health of your applications and infrastructure.*
 
-Prometheus follows a pull-based model, where it periodically scrapes metrics data from various targets, such as applications, services, and servers. These targets expose their metrics through an HTTP endpoint, which Prometheus can access and retrieve the data from.
+*Prometheus follows a pull-based model, where it periodically scrapes metrics data from various targets, such as applications, services, and servers. These targets expose their metrics through an HTTP endpoint, which Prometheus can access and retrieve the data from.*
 
-Once Prometheus collects the metrics, it stores them in a time-series database, where they can be queried and analyzed using a powerful query language called PromQL. This allows you to create custom dashboards, set up alerts based on specific conditions, and gain insights into the behavior and performance of your systems. (Github Copilot)
+*Once Prometheus collects the metrics, it stores them in a time-series database, where they can be queried and analyzed using a powerful query language called PromQL. This allows you to create custom dashboards, set up alerts based on specific conditions, and gain insights into the behavior and performance of your systems. (Github Copilot)*
 
 ### Configuration
 1. add k8s [deployment](../../k8s/prometheus-deployment.yaml), [service](../../k8s/prometheus-svc.yaml), [pvc](../../k8s/prometheus-pvc.yaml)
@@ -51,9 +51,9 @@ Once Prometheus collects the metrics, it stores them in a time-series database, 
 3. deploy to k8s with `kubectl apply -f ...` or run the deploy action
 
 ## Grafana
-Grafana is an open-source data visualization and monitoring tool that allows you to create interactive dashboards and visualize metrics from various data sources. It provides a user-friendly interface for exploring and analyzing data, making it easier to monitor the performance and health of your applications and infrastructure.
+*Grafana is an open-source data visualization and monitoring tool that allows you to create interactive dashboards and visualize metrics from various data sources. It provides a user-friendly interface for exploring and analyzing data, making it easier to monitor the performance and health of your applications and infrastructure.*
 
-With Grafana, you can connect to different data sources such as databases, time-series databases (like Prometheus), cloud monitoring services, and more. It supports a wide range of data formats and protocols, making it flexible and adaptable to different monitoring setups. (Github Copilot)
+*With Grafana, you can connect to different data sources such as databases, time-series databases (like Prometheus), cloud monitoring services, and more. It supports a wide range of data formats and protocols, making it flexible and adaptable to different monitoring setups. (Github Copilot)*
 
 
 ### Configuration TBD
