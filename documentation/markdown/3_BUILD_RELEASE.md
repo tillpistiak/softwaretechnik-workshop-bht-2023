@@ -1,8 +1,8 @@
 # BUILD
 
-## Inhaltsverzeichnis
+## Table of Contents
 - [BUILD](#build)
-  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+  - [Table of Contents](#Table of Contents)
   - [Build Tool: Maven](#build-tool-maven)
     - [Configuration](#configuration)
   - [Containerisation: Docker](#containerisation-docker)

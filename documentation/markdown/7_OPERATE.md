@@ -1,8 +1,8 @@
 # OPERATE
 
-## Inhaltsverzeichnis
+## Table of Contents
 - [OPERATE](#operate)
-  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+  - [Table of Contents](#Table of Contents)
   - [Domain: Cloudflare !](#domain-cloudflare-)
     - [Domain !](#domain-)
     - [DNS !](#dns-)

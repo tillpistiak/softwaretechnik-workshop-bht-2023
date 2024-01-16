@@ -1,7 +1,7 @@
 # PLAN (Konzept)
-## Inhaltsverzeichnis
+## Table of Contents
 - [PLAN (Konzept)](#plan-konzept)
-  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+  - [Table of Contents](#Table of Contents)
   - [1 Systemkomponenten](#1-systemkomponenten)
     - [Infrastruktur](#infrastruktur)
     - [Software](#software)

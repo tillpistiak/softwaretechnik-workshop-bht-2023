@@ -1,7 +1,7 @@
 # CODE
-## Inhaltsverzeichnis
+## Table of Contents
 - [CODE](#code)
-  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+  - [Table of Contents](#Table of Contents)
   - [Frameworks](#frameworks)
     - [Quarkus](#quarkus)
       - [Configuration \& Initial Setup](#configuration--initial-setup)
