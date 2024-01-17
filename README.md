@@ -106,7 +106,7 @@ For other operating systems the same tools are required. For installation guides
       #> pool-3mz19dpbc-x5qe1   Ready    <none>   25d   v1.28.2
       ```
 
-   4. create load balancer & ingress controller (:warning: doing this will create a 12$/month Digital Ocean Loadbalancer)
+   4. create load balancer & ingress controller ( :warning: doing this will create a 12$/month Digital Ocean Loadbalancer)
       ```bash
       # install ingress controller
       kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/do/deploy.yaml
@@ -127,6 +127,26 @@ For other operating systems the same tools are required. For installation guides
 
 #### Cloudflare
 
+1. register domain ([Cloudflare Dashboard](https://dash.cloudflare.com))
+   1. create a free account https://www.cloudflare.com/de-de/plans/ 
+   2. go to `Domain Registration -> Register Domains`
+   3. search for the domain
+   4. select domain & complete payment
+   ![cloudflare domain registration](documentation//screenshots/cloudflare_domain_registration.png)
+
+2. create dns entries ([Cloudflare Dashboard](https://dash.cloudflare.com))
+   1. select your domain on the homepage of the cloudflare dashboard
+   2. go to `DNS / Records`
+   3. click on "Add record"
+      1. select type `A`
+      2. choose a name for the subnaim, e.g. "appointmentservice" -> this will create a DNS entry for the domain "`appointmentservice.<your_domain>.<your_tld>`"
+      3. enter the `EXTERNAL_IP` from the Load Balancer into the `IPv4` field
+      4. keep `Proxied` enabled
+      5. click "Save" ![add dns](documentation/screenshots/cloudflare_dns.png)
+   4. do the same for the grafana subdomain, e.g. "`grafana.<your_domain>.<your_tld>`"![grafana dns](documentation/screenshots/cloudflare_grafana_dns.png)
+
+
+3. configure tls ([Cloudflare Dashboard](https://dash.cloudflare.com))
 #### Github
 
 ### Deployment

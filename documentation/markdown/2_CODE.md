@@ -1,7 +1,7 @@
 # CODE
 ## Table of Contents
 - [CODE](#code)
-  - [Table of Contents](#Table of Contents)
+  - [Table of Contents](#table-of-contents)
   - [Frameworks](#frameworks)
     - [Quarkus](#quarkus)
       - [Configuration \& Initial Setup](#configuration--initial-setup)
@@ -19,7 +19,7 @@
       - [Usage](#usage-2)
     - [Hibernate](#hibernate)
       - [Configuration](#configuration-4)
-      - [Usage #TBD](#usage-tbd)
+      - [Usage](#usage-3)
   - [Data Model](#data-model)
 
 
@@ -201,7 +201,7 @@ Overall, Hibernate simplifies the development of database-driven applications by
     </dependency>
     ```
 
-#### Usage #TBD
+#### Usage
 - define entities 
   ```java
   @Entity(name = "appointment") 
@@ -212,14 +212,10 @@ Overall, Hibernate simplifies the development of database-driven applications by
   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    @Getter
-    @Setter
   ```
 - define relations
   ```java
   @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-      @Getter
-      @Setter
       @JsonIgnore
       private List<AppointmentUser> appointments = new ArrayList<>();
   ```

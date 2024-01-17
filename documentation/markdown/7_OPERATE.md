@@ -14,13 +14,6 @@
 
 Cloudflare is a popular choice to register a new domain. To register a new domain on cloudflare, the following steps are required:
 
-1. create a free account https://www.cloudflare.com/de-de/plans/ 
-2. go to `Domain Registration -> Register Domains`
-3. search for the domain
-4. select domain & complete payment
-
-![cloudflare domain registration](../screenshots/cloudflare_domain_registration.png)
-
 
 ## Load Balancer / Ingress Controller
 A load balancer and an ingress controller are both components used in managing network traffic in a distributed system. Let's break down each of them:
