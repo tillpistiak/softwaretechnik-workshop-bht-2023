@@ -222,14 +222,12 @@ Overall, Hibernate simplifies the development of database-driven applications by
 - get entities from db
   ```java
   @Transactional
-    public Appointment updateAppointment(Long appointmentId, Appointment appointment) {
-        Appointment existingAppointment = findSingleAppointment(appointmentId);
-        existingAppointment.setTitle(appointment.getTitle());
-        existingAppointment.setDescription(appointment.getDescription());
-        existingAppointment.setStart(appointment.getStart());
-        existingAppointment.setEnd(appointment.getEnd());
-        existingAppointment.persist();
-        return existingAppointment;
+    public Appointment findSingleAppointment(Long appointmentId) {
+         Appointment appointment = Appointment.findById(appointmentId);
+         if (appointment == null) {
+             throw new NotFoundException();
+         }
+         return appointment;
     }
   ```
 - persist entites
