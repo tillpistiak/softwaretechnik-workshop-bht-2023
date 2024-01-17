@@ -17,6 +17,13 @@ Authors:
     - [SSL certificates from cloudflare](#ssl-certificates-from-cloudflare)
     - [testing with in-memory databases](#testing-with-in-memory-databases)
   - [What's next?](#whats-next)
+    - [User Authentication \& Roles](#user-authentication--roles)
+    - [Exception Handling](#exception-handling)
+    - [Health Checks](#health-checks)
+    - [Custom Metrics](#custom-metrics)
+    - [Alert Manager](#alert-manager)
+    - [Load Testing](#load-testing)
+    - [Optimize Github Actions](#optimize-github-actions)
 
 ## How to start developing locally?
  The following steps are required to run the application locally on **MacOS**. Please make sure [Homebrew](https://brew.sh/), [SDKMAN](https://brew.sh/) and [Git](https://www.git-scm.com/downloads) are already present on your machine. 
@@ -240,7 +247,7 @@ For other operating systems the same tools are required. For installation guides
    1. click on the "+" in the menu bar and choose Import dashboard ![Alt text](documentation/screenshots/grafana_import_dashboard.png)
    2. enter `4701` as dashboard id
    3. click load![Alt text](documentation/screenshots/grafana_dashboard_id.png)
-3. create dashboard for custom metrics TODO
+3. create dashboard for custom metrics
    
 
 ## Lessons Learned
@@ -272,7 +279,51 @@ For other operating systems the same tools are required. For installation guides
 - in the end, Derby could be initialized by Hibernate without changing much. So we decided to keep it that way as we didnt know how long it would take us to configure Liquibase for Derby
 
 ## What's next?
-- User Authentication & Roles
-- Alert Manager?
-- Load Testing
+### User Authentication & Roles
+- currently we dont have any form of authentication -> everyone can access the application
+- we want to add OIDC based user authentication
+- the subject of the tokens will include the user_id
+- having user authentication in place will also enable us to implement role based access rights (currently the status "owner" does not play any role)
+- adding admin accounts
 
+### Exception Handling
+- introduce global exception handling for the controller
+- some exceptions arent caught at the moment, this has to be fixed to reduce leakage of information
+  - Unique Constraing violations
+  - Other DB exceptions
+
+### Health Checks
+- the pods of the appointment-service should only be "ready" and "live" under certain circumstances
+  - DB accessible
+  - other default metrics
+- configuration should be easy with [Smallrye Health](https://quarkus.io/guides/smallrye-health)
+
+
+### Custom Metrics
+- micrometer can be used to create custom metrics
+- these metrics can then be visualized by grafana to create better insights into the performance of the application
+- possible metrics
+  - how often is each endpoint called per time unit
+  - how long does it take to process a request
+  - how long does it take to execute a transaction
+- there should also be metrics for the database
+
+### Alert Manager
+- an alert manager keeps an eye on the metrics scraped by prometheus
+- if a defined treshold is passed on one metrics, the alert manager will send a message, e.g. to an email address 
+- this is extremely important to prevent downtime, as potential risks such as insufficient memory, storage or cpu can be detected and fixed
+- it is also important to detect potential attacks or threats
+- https://prometheus.io/docs/alerting/latest/alertmanager/
+
+
+### Load Testing
+- to be sure the application and infrastructure is ready to be released to the public, we must be sure it can handle a certain amount of load
+- we could use [jMeter](https://jmeter.apache.org/) to send many requests at once to the different endpoints
+- jMeter can also be used to test more complex scenarios
+- running these tests while having an eye on grafana and alert manager can give us insights into the performance and durability of the service
+
+### Optimize Github Actions
+- currently every workflow run starts from scratch
+- java, maven and all the dependencies have to be fetched
+- this makes the workflow slow and on the long term more expensive 
+- to address this issue we should use [Caches](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows) 

@@ -65,4 +65,3 @@ TBD
 6. set new personal password
 7. connect to prometheus
 8. import java micrometer dashboard
-9. create dashboard for custom metrics
