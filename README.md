@@ -38,6 +38,7 @@ For other operating systems the same tools are required. For installation guides
       ```bash
       brew install vscode
       ```
+      configure `code` command (https://code.visualstudio.com/docs/setup/mac)
    - Docker (https://www.docker.com/products/docker-desktop/)
       ```bash
       brew install docker
