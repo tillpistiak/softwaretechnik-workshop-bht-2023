@@ -1,7 +1,7 @@
 # PLAN (Konzept)
 ## Table of Contents
 - [PLAN (Konzept)](#plan-konzept)
-  - [Table of Contents](#Table of Contents)
+  - [Table of Contents](#table-of-contents)
   - [1 Systemkomponenten](#1-systemkomponenten)
     - [Infrastruktur](#infrastruktur)
     - [Software](#software)
@@ -25,6 +25,9 @@
 Backend
 - Digital Ocean Cloud
 - Cloudflare DNS & TLS
+
+Components
+![components](../diagrams/components.png)
   
 Frontend
 - Github Pages
@@ -38,7 +41,7 @@ DB
 - MariaDB
 - Derby (Testing)
 
-![components](documentation/diagrams/components.png)
+![er](../diagrams/swt_appointment_er.png)
 
 ### Software
 Backend
