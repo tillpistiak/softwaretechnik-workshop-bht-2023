@@ -26,6 +26,9 @@ jobs:
       - name: Replace placeholders for mariadb
         run: sed -i 's|<ROOT_PASSWORD>|${{ secrets.MYSQL_ROOT_PASSWORD }}|' $GITHUB_WORKSPACE/k8s/mariadb-secret.yaml && sed -i 's|<PASSWORD>|${{ secrets.MYSQL_PASSWORD }}|' $GITHUB_WORKSPACE/k8s/mariadb-secret.yaml
 
+      - name: Replace placeholders for host
+        run: sed -i 's|<GRAFANA_HOST>|${{ env.GRAFANA_HOST }}|' $GITHUB_WORKSPACE/k8s/ingress.yaml && sed -i 's|<SERVICE_HOST>|${{ env.SERVICE_HOST }}|' $GITHUB_WORKSPACE/k8s/ingress.yaml
+
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.CLUSTER_NAME }}
 

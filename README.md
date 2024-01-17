@@ -1,4 +1,10 @@
 # AppointmentService
+Authors:
+- Merdan Erdogan
+- Fariq Stephan Hofmann
+- Georgios Kyloudis
+- Till Pistiak
+
 ## Table of Contents
 - [AppointmentService](#appointmentservice)
   - [Table of Contents](#table-of-contents)
@@ -8,11 +14,6 @@
       - [Digital Ocean](#digital-ocean)
       - [Cloudflare](#cloudflare)
       - [Github](#github)
-    - [Deployment](#deployment)
-    - [Monitoring](#monitoring)
-  - [Lessons Learned](#lessons-learned)
-    - [Nginx config in Digital Ocean kubernetes](#nginx-config-in-digital-ocean-kubernetes)
-    - [Write access deployment.yaml / prometheus](#write-access-deploymentyaml--prometheus)
     - [SSL certificates from cloudflare](#ssl-certificates-from-cloudflare)
     - [testing with in-memory databases](#testing-with-in-memory-databases)
   - [What's next?](#whats-next)
@@ -204,7 +205,13 @@ For other operating systems the same tools are required. For installation guides
    TLS_KEY=<tls_key_base64> # base64 encoded tls private key from cloudflare
    ```
 4. result should look like this![Alt text](documentation/screenshots/github_secrets.png)
-5. give write permissions to github_token as described in [3_BUILD_RELEASE](documentation/markdown/3_BUILD_RELEASE.md#configuration-2)
+5. go to the "Environtment Variables" tab
+6. Use the "new repository variable" button to create the following variables, paste the mentioned values
+   ```properties
+   SERVICE_HOST=<service-subdomain.domain.tld> # e.g. appointment.tillpistiak.com
+
+   GRAFANA_HOST=<grafana-subdomain.domain.tld> # e.g.  grafana.tillpistiak.com
+7. give write permissions to github_token as described in [3_BUILD_RELEASE](documentation/markdown/3_BUILD_RELEASE.md#configuration-2)
 
 ### Deployment
 
