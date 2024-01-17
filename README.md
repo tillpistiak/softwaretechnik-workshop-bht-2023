@@ -77,10 +77,11 @@ For other operating systems the same tools are required. For installation guides
 
 3. create an access token for your local machine (Digital Ocean)
    - go to `API / Tokens / Personal Access Tokens` and click on "Generate New Token"
-   - choose a name and select the prefered expiration time
-   - enable write access
-   - click on "Generate Token"![generate token](documentation/screenshots/do_generate_token.png)
-   - copy the generated token, it will be required for the next step and cant be shown again
+     - choose a name and select the prefered expiration time
+     - enable write access
+     - click on "Generate Token"![generate token](documentation/screenshots/do_generate_token.png)
+     - copy the generated token, it will be required for the next step and cant be shown again
+   - create a **second** access token to use in your Github Repository, keep for later
   
 4. configure kubectl on your local machine & install ingress-controller (Terminal)
    1. install with brew
@@ -147,9 +148,45 @@ For other operating systems the same tools are required. For installation guides
 
 
 3. configure tls ([Cloudflare Dashboard](https://dash.cloudflare.com))
+   1. go to `SSL/TLS / Overview`
+   2. enable `Full(strict)` as encryption mode ![tls mode](image.png)
+   3. go to `SSL/TLS / Origin Server`
+   4. click on "Create Certificate"
+   5. select `ECC` as private key type
+   6. enter **BOTH** subdomains (service & grafana) as Hostnames
+   7. select the preferred validity (will be done again before the certificate expires)
+   8. click on "Create"
+   9. copy both private key and certificate and store them securely. if you loose the private key you'll have to generate a new keypair   10. ![tls cert creation](image-1.png)
+   10. convert the certificate and key to base64
+       ```bash
+       echo "<paste_certificate>"|base64
+       echo "<paste_key>"|base64
+       ```
+
+
 #### Github
 
+1. go to your repository and open the settings
+2. go to `"Secrets and variables" / Actions`
+3. Use the "new repository secret" button to create the following secrets, paste the mentioned values
+   ```properties
+   CLUSTER_NAME=<name_of_kubernetes_cluster> # can be found in DO dashboard
+
+   DIGITALOCEAN_ACCESS_TOKEN=<do_access_token> # DO access token you created for GitHub
+   
+   MYSQL_PASSWORD=<password> # you can choose the password
+   
+   MYSQL_ROOT_PASSWORD=<password> # you can choose the password
+   
+   TLS_CERT=<tls_cert_base64> # base64 encoded tls certificate from cloudflare
+   
+   TLS_KEY=<tls_key_base64> # base64 encoded tls private key from cloudflare
+   ```
+4. result should look like this![Alt text](image-2.png)
+
 ### Deployment
+
+
 
 ### Monitoring
 
