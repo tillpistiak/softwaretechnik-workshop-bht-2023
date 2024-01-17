@@ -202,12 +202,54 @@ Overall, Hibernate simplifies the development of database-driven applications by
     ```
 
 #### Usage #TBD
-- define entities
+- define entities 
+  ```java
+  @Entity(name = "appointment") 
+  public class Appointment extends PanacheEntityBase {
+  ```
 - define columns
+  ```java
+  @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    @Getter
+    @Setter
+  ```
 - define relations
+  ```java
+  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+      @Getter
+      @Setter
+      @JsonIgnore
+      private List<AppointmentUser> appointments = new ArrayList<>();
+  ```
 - get entities from db
+  ```java
+  @Transactional
+    public Appointment updateAppointment(Long appointmentId, Appointment appointment) {
+        Appointment existingAppointment = findSingleAppointment(appointmentId);
+        existingAppointment.setTitle(appointment.getTitle());
+        existingAppointment.setDescription(appointment.getDescription());
+        existingAppointment.setStart(appointment.getStart());
+        existingAppointment.setEnd(appointment.getEnd());
+        existingAppointment.persist();
+        return existingAppointment;
+    }
+  ```
 - persist entites
+  ```java
+  @Transactional
+    public void addNewAppointment(Appointment newAppointment) {
+        newAppointment.persist();
+    }
+  ```
 - delete entites
+  ```java
+   @Transactional
+    public void deleteGroup(Long groupId) {
+        Group.deleteById(groupId);
+    }
+  ```
 
 ## Data Model
 ![ER Model](../diagrams/swt_appointment_er.png)
