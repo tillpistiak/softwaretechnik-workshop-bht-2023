@@ -11,6 +11,10 @@
     - [Deployment](#deployment)
     - [Monitoring](#monitoring)
   - [Lessons Learned](#lessons-learned)
+    - [Nginx config in Digital Ocean kubernetes](#nginx-config-in-digital-ocean-kubernetes)
+    - [Write access deployment.yaml / prometheus](#write-access-deploymentyaml--prometheus)
+    - [SSL certificates from cloudflare](#ssl-certificates-from-cloudflare)
+    - [testing with in-memory databases](#testing-with-in-memory-databases)
   - [What's next?](#whats-next)
 
 ## How to start developing locally?
@@ -111,7 +115,24 @@ For other operating systems the same tools are required. For installation guides
       ```bash
       # install ingress controller
       kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/do/deploy.yaml
+
+      # edit resources of ingress controller
+      # get ingress-controller deployment.yaml
+      kubectl get deployment ingress-nginx-controller -n ingress-nginx -oyaml>ingress-controller.yaml
       
+      # now update the resources in the created file
+      code ingress-controller.yaml
+      
+      # use these values:
+      # resources:
+      #   limits:
+      #     cpu: 50m
+      #   requests:
+      #     cpu: 50m 
+      #     memory: 90Mi
+
+      # after the file has been saved, apply it with kubectl
+      kubectl apply -f ingress-controller.yaml
       
       # confirm pods have started
       kubectl get pods -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx --watch
@@ -149,14 +170,14 @@ For other operating systems the same tools are required. For installation guides
 
 3. configure tls ([Cloudflare Dashboard](https://dash.cloudflare.com))
    1. go to `SSL/TLS / Overview`
-   2. enable `Full(strict)` as encryption mode ![tls mode](image.png)
+   2. enable `Full(strict)` as encryption mode ![tls mode](documentation/screenshots/cloudflare_tls_mode.png)
    3. go to `SSL/TLS / Origin Server`
    4. click on "Create Certificate"
    5. select `ECC` as private key type
    6. enter **BOTH** subdomains (service & grafana) as Hostnames
    7. select the preferred validity (will be done again before the certificate expires)
    8. click on "Create"
-   9. copy both private key and certificate and store them securely. if you loose the private key you'll have to generate a new keypair   10. ![tls cert creation](image-1.png)
+   9. copy both private key and certificate and store them securely. if you loose the private key you'll have to generate a new keypair   10. ![tls cert creation](documentation/screenshots/cloudflare_tls_generation.png)
    10. convert the certificate and key to base64
        ```bash
        echo "<paste_certificate>"|base64
@@ -182,21 +203,66 @@ For other operating systems the same tools are required. For installation guides
    
    TLS_KEY=<tls_key_base64> # base64 encoded tls private key from cloudflare
    ```
-4. result should look like this![Alt text](image-2.png)
+4. result should look like this![Alt text](documentation/screenshots/github_secrets.png)
+5. give write permissions to github_token as described in [3_BUILD_RELEASE](documentation/markdown/3_BUILD_RELEASE.md#configuration-2)
 
 ### Deployment
 
-
+1. go to Github Actions in your repository
+2. select the build pipeline
+3. enter the preferred tag version
+4. run the workflow
+5. wait for the build workflow to complete
+6. make sure the deploy workflow has been triggered and wait for it to complete
+7. got to your kubernetes cluster in the Digital Ocean Dashboard
+8. Open the Kubernetes Dashboard
+9. Wait for all workloads to become green![Alt text](documentation/screenshots/kubernetes_dashboard.png)
 
 ### Monitoring
+1. open grafana subdomain (e.g. https://grafana.<your_domain>.<your_tld>)
+1. login with admin:admin
+1. set new personal password
+1. connect to prometheus
+   1. go to Home > Connections > Add new connection
+   2. choose Prometheus as data source
+   3. click "Add new data source"
+   4. enter `prometheus-internal-service:9090` as prometheus server url
+   5. keep defaults for everything else
+   6. click save & test
+2. import java micrometer dashboard
+   1. click on the "+" in the menu bar and choose Import dashboard ![Alt text](documentation/screenshots/grafana_import_dashboard.png)
+   2. enter `4701` as dashboard id
+   3. click load![Alt text](documentation/screenshots/grafana_dashboard_id.png)
+3. create dashboard for custom metrics TODO
+   
 
 ## Lessons Learned
-- Nginx config DO
-- Write access deployment.yaml / prometheus
-- SSL Zertifikate von Cloudflare
-- h2 in mem testing
-- Derby user
+### Nginx config in Digital Ocean kubernetes
+- digital ocean is forcing you to create a (billed) load balancer
+- the easiest way to get it running is therefore to use their nginx template
+- this will automatically create the load balancer
+- using the marketplace or installing the nginx-controller by other means, e.g. manually,can lead to problems
 
+### Write access deployment.yaml / prometheus
+- per default, pods don have write access to mounted persitent volumes
+- if prometheus cant perform write operations, the pod wont start 
+- to gain writing permissions, the `security context` has to be adapted
+  ```yaml
+  securityContext:
+    fsGroup: 2000
+  ```
+
+### SSL certificates from cloudflare
+- we initially thought the "Origin Server" certificates which can be issued for free by cloudflare are meant to replace the automatically generated certs which are only free for the first level of subdomains
+- we assumed that we could just use them in our ingress to secure the connections between clients and our backend, especially since the SAN values were correct
+- in fact, these are only meant to secure the connection from our cluster to the cloudflare proxy, so we would always receive an error `ERR_SSL_VERSION_OR_CIPHER_MISMATCH` as the proxy only allows tls for one level of subdomains in the free tier
+- the solution was to use just one level of subdomains, this way we are able to keep cloudflare proxy enabled 
+
+### testing with in-memory databases
+- to create an lightweight and easy to execute test setup which can run in Github Actions without further configuration we decided to use an in-memory database for our tests
+- we first wanted to use H2 but Liquibase and Hibernate had some issues so we decided to try out if derby would work better before wasting to much time on H2
+- both had one issue in common: our table "user" created problems because "user" is a keyword in both SQL dialects
+- in the end, Derby could be initialized by Hibernate without changing much. So we decided to keep it that way as we didnt know how long it would take us to configure Liquibase for Derby
 
 ## What's next?
 - User Authentication & Roles
