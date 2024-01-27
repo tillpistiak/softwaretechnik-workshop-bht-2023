@@ -12,11 +12,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/appointments/",
+					"raw": "{{host}}/appointments/",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"appointments",
 						""
@@ -31,11 +30,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/appointments/1",
+					"raw": "{{host}}/appointments/1",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"appointments",
 						"1"
@@ -50,11 +48,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/appointments/1",
+					"raw": "{{host}}/appointments/1",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"appointments",
 						"1"
@@ -70,7 +67,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"description\": \"Work Event\",\n    \"title\": \"New Years\",\n    \"start\": \"2024-01-01T20:49:33.203631\",\n    \"end\": \"2024-01-01T22:49:33.203654\"\n}",
+					"raw": "{\n    \"description\": \"Work Event\",\n    \"title\": \"Geo feiert\",\n    \"start\": \"2024-02-01T20:49:33.203631\",\n    \"end\": \"2024-02-01T22:49:33.203654\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -78,11 +75,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/appointments",
+					"raw": "{{host}}/appointments",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"appointments"
 					]
@@ -105,11 +101,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/appointments/4",
+					"raw": "{{host}}/appointments/4",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"appointments",
 						"4"
@@ -124,11 +119,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/groups/",
+					"raw": "{{host}}/groups/",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"groups",
 						""
@@ -143,11 +137,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/groups/1",
+					"raw": "{{host}}/groups/1",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"groups",
 						"1"
@@ -162,11 +155,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/groups/1",
+					"raw": "{{host}}/groups/1",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"groups",
 						"1"
@@ -190,11 +182,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/groups",
+					"raw": "{{host}}/groups",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"groups"
 					]
@@ -217,11 +208,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/groups/3",
+					"raw": "{{host}}/groups/3",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"groups",
 						"3"
@@ -236,11 +226,10 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/groups/1/appointments/8",
+					"raw": "{{host}}/groups/1/appointments/8",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"groups",
 						"1",
@@ -257,11 +246,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/",
+					"raw": "{{host}}/users/",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
 						""
@@ -276,11 +264,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/1",
+					"raw": "{{host}}/users/1",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
 						"1"
@@ -295,11 +282,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/4",
+					"raw": "{{host}}/users/4",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
 						"4"
@@ -315,7 +301,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"givenName\": \"Geo\",\n    \"familyName\": \"Mustermann\",\n    \"email\": \"test@test.de\"\n}",
+					"raw": "{\n    \"givenName\": \"Geo\",\n    \"familyName\": \"Glissmann\",\n    \"email\": \"test@test.de\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -323,11 +309,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/users",
+					"raw": "{{host}}/users",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users"
 					]
@@ -350,11 +335,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/users/5",
+					"raw": "{{host}}/users/5",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
 						"5"
@@ -369,14 +353,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/4/appointments",
+					"raw": "{{host}}/users/1/appointments",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
-						"4",
+						"1",
 						"appointments"
 					]
 				}
@@ -389,11 +372,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/4/appointments/2",
+					"raw": "{{host}}/users/4/appointments/2",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
 						"4",
@@ -410,11 +392,10 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/3/appointments/3",
+					"raw": "{{host}}/users/3/appointments/3",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
 						"3",
@@ -427,22 +408,24 @@
 		},
 		{
 			"name": "/users/{id}/appointments/{id}/status",
+			"protocolProfileBehavior": {
+				"followOriginalHttpMethod": true
+			},
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/5/appointments/3/status/ACCEPTED",
+					"raw": "{{host}}/users/1/appointments/3/status/INVITED",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
-						"5",
+						"1",
 						"appointments",
 						"3",
 						"status",
-						"ACCEPTED"
+						"INVITED"
 					]
 				}
 			},
@@ -454,11 +437,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/5/groups",
+					"raw": "{{host}}/users/5/groups",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
 						"5",
@@ -474,11 +456,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/4/groups/1",
+					"raw": "{{host}}/users/4/groups/1",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
 						"4",
@@ -495,11 +476,10 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/4/groups/1",
+					"raw": "{{host}}/users/4/groups/1",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
 						"4",
@@ -516,11 +496,10 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/4/groups/2/status/DECLINED",
+					"raw": "{{host}}/users/4/groups/2/status/DECLINED",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
 						"4",
